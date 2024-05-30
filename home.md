@@ -1,8 +1,6 @@
-# La Morsa del Cyber Crimine: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati
+# **La Morsa del Cyber Crimine: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati**
 
----
-
-## Introduzione
+## **Introduzione**
 
 ### Contesto e Importanza della Cybersecurity
 
@@ -20,7 +18,7 @@ L'obiettivo di questo report è analizzare dettagliatamente un attacco composto 
 
 L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della vittima. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa la il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
 
-## Fase 0: Enumeration
+## **Fase 0: Enumeration**
 
 L'enumerazione è una fase preliminare degli attacchi informatici in cui l'attaccante raccoglie informazioni dettagliate sulla vittima.
 
@@ -51,7 +49,7 @@ L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows
 
 La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing. Conoscere i dettagli personali e professionali della vittima aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre, l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi che possono essere sfruttate nelle fasi successive dell'attacco.
 
-## Fase 1: Valid Account
+## **Fase 1: Valid Account**
 
 Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa un dizionario costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
@@ -73,7 +71,7 @@ La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per cond
 
 Inoltre, l'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottolinea l'importanza di implementare pratiche di sicurezza robuste, come l'uso di password complesse e uniche e la gestione adeguata degli account degli utenti, al fine di proteggere la rete da attacchi di forza bruta e intrusioni non autorizzate.
 
-## Fase 2: Spearphishing e Iniezione di un Keylogger
+## **Fase 2: Spearphishing e Iniezione di un Keylogger**
 
 Lo spearphishing è una forma di phishing mirata in cui l'attaccante invia email fraudolente a individui specifici all'interno di un'organizzazione, utilizzando informazioni raccolte durante la fase di enumerazione per rendere l'email più credibile.
 L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante decide di inviare il seguente messaggio al bersaglio:
@@ -163,7 +161,7 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 L'installazione del programma malevolo può portare all'accesso non autorizzato ai sistemi aziendali di "Finanza Viva", dei conti bancari e di qualsiasi altro servizio fondamentale all'azienza. Può avere conseguenze devastanti: furto di credenziali, compromissione di dati sensibili e danni reputazionali.
 
-## Fase 3: Estrazione Dati tramite SMB
+## **Fase 3: Estrazione Dati tramite SMB**
 
 Dopo aver iniettato un keylogger nel sistema di Alessandro e aver raccolto i dati sensibili, l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
@@ -197,7 +195,7 @@ L'attaccante può verificare che lo spostamento del file è avvenuto nel termina
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
-## Conclusioni
+## **Conclusioni**
 
 Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
 
@@ -206,7 +204,7 @@ Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipen
 + Monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
 + Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
 
-## Riferimenti
+## **Riferimenti**
 
 1. Nmap:
     + Nmap Official Website: <https://nmap.org/>
