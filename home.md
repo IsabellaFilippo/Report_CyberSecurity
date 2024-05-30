@@ -207,10 +207,10 @@ Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipen
 ## Riferimenti
 
 1. Nmap:
-    + Nmap Official Website: https://nmap.org/
+    + Nmap Official Website: <https://nmap.org/>
 
 2. Hydra:
-    + van Hauser, "Hydra - A very fast network logon cracker," THC, 2023. Disponibile: https://github.com/vanhauser-thc/thc-hydra
+    + van Hauser, "Hydra - A very fast network logon cracker," THC, 2023. Disponibile: <https://github.com/vanhauser-thc/thc-hydra>
 
 3. Trasferimento di file da e verso il server SMB dell'utente malintenzionato:
-    + https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server
+    + <https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server>
