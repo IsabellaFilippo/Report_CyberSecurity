@@ -7,7 +7,6 @@
 # **La Morsa del Cyber Crimine**: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati
 
 <br>
-<br>
 
 ## **Introduzione**
 
