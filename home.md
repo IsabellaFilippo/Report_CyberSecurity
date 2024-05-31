@@ -1,7 +1,8 @@
 <br>
-<br>
 
 ![Descrizione immagine](./images/Cybercrimine.png)
+
+<br>
 
 # **La Morsa del Cyber Crimine**: Esplorazione di un Attacco Multi-Fase, da Spearphishing a Furto di Dati
 
