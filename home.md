@@ -18,7 +18,7 @@ Le minacce cyber sono in continua evoluzione e possono avere conseguenze devasta
 
 ### Obiettivo del Report
 
-L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger, furto di credenziali e esfiltrazione di informazioni.
+L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger (come allegato mail), furto di credenziali e esfiltrazione di informazioni.
 
 ### Strumenti utilizzati
 
@@ -26,7 +26,7 @@ L'obiettivo di questo report è analizzare dettagliatamente un attacco composto 
 
 ### Descrizione dell'attacco
 
-L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della vittima. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa la il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
+L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della vittima. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
 
 <br>
 
@@ -34,26 +34,25 @@ L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l
 
 ---
 
-L'enumerazione è una fase preliminare degli attacchi informatici in cui l'attaccante raccoglie informazioni dettagliate sulla vittima.
+L'enumerazione è una fase preliminare degli attacchi informatici.
 
 ### Tecniche di Enumerazione
 
-Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni durante la fase di enumerazione, tra cui l'utilizzo di strumenti automatizzati come Nmap:
+Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui anche l'utilizzo di strumenti automatizzati:
 
-+ Social Media: Monitoraggio dei profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per creare attacchi mirati.
++ Social Media: monitoraggio dei profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per creare attacchi mirati.
 
-+ LinkedIn: Utilizzo di LinkedIn per identificare i dipendenti chiave dell'azienda e ottenere informazioni sui loro ruoli e interessi professionali.
++ LinkedIn: identificazione dei dipendenti chiave dell'azienda e delle loro relative informazioni sul ruolo e aui loro interessi professionali.
 
-+ Whois Lookup: Utilizzo di servizi Whois per ottenere informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
++ Whois Lookup: ottenimento delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
 
-+ Nmap: Nmap è uno strumento di scansione di rete ampiamente utilizzato per raccogliere informazioni su dispositivi e servizi in una rete. Può essere utilizzato per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
++ Nmap: strumento di scansione di rete ampiamente utilizzato per raccogliere informazioni su dispositivi e servizi in una rete. Può essere utilizzato per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute.
-Dopo aver identificato l'azienda l'attaccante procede con la scansione della rete utilizzando Nmap. Supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato all'azienda.
-
-Utilizzando Nmap:
+Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante ha raccolto molte informazioni pubblice sulla azienza e sui dipendeti.
+<!-- Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. -->
+Dopo aver identificato l'azienda, supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato. A questo punto l'attaccante procede con la scansione della rete utilizzando Nmap:
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
@@ -61,7 +60,7 @@ L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows
 
 ### Importanza per l'Attacco
 
-La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing. Conoscere i dettagli personali e professionali della vittima aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre, l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi che possono essere sfruttate nelle fasi successive dell'attacco.
+La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing (eseguito in seguito). Conoscere i dettagli personali e professionali del bersaglio aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre, l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi che possono essere sfruttate nelle fasi successive dell'attacco.
 
 <br>
 
@@ -77,15 +76,15 @@ L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministrator
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-L'attaccante ottiene l'accesso alla shell nell'dispositivo dell'azienda con l'identità dell'amministratore. Quindi l'attaccante naviga tra i file e scopre l'esistenza di un altro utente:
+L'attaccante ottiene l'accesso alla shell nell'dispositivo dell'azienda con l'identità dell'amministratore e inizia a navigare tra i file:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto dell'utente come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande fan della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
+L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande fan della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
 
 ### Importanza per l'attacco
 
-La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per condurre un attacco di forza bruta sono cruciali per l'attaccante. Ottenere l'accesso come amministratore consente all'attaccante di eseguire operazioni dannose all'interno della rete, come il furto di dati sensibili, la modifica delle configurazioni di sistema o l'infiltrazione di malware.
+La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per condurre un attacco di forza bruta sono cruciali per l'attaccante. Ottenere l'accesso come amministratore consente all'attaccante di eseguire operazioni dannose all'interno della rete, come il furto di dati sensibili, la modifica delle configurazioni di sistema o l'esfiltrazione dei dati.
 
 Inoltre, l'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottolinea l'importanza di implementare pratiche di sicurezza robuste, come l'uso di password complesse e uniche e la gestione adeguata degli account degli utenti, al fine di proteggere la rete da attacchi di forza bruta e intrusioni non autorizzate.
 
@@ -121,7 +120,7 @@ Ti inviamo il link al software e le istruzioni per iniziare il test. Se hai doma
 
 Cordiali saluti,
 
-Il Team di Gestione delle Spese
+Il Team di Gestore di Spesa
 
 </blockquote>
 
@@ -135,7 +134,7 @@ In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è u
 
 ### Funzionamento del Software Malevolo
 
-Alessandro scarica e avvia il programma "Gestore_di_spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
+Alessandro scarica e avvia il programma "Gestore di spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
 ![Descrizione immagine](./images/Wapp.png)
 
@@ -191,7 +190,7 @@ L'installazione del programma malevolo può portare all'accesso non autorizzato 
 
 ---
 
-Dopo aver iniettato un keylogger nel sistema di Alessandro e aver raccolto i dati sensibili, l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
+Dopo che l'utente ha scaricato il programma malevolo e averlo eseguito, il keylogger inizia a raccogliere i dati sensibili. Ora l'attaccante può sfruttare il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
 ### 1. Configurazione del Server SMB sull'Attaccante
 
@@ -199,7 +198,7 @@ L'attaccante configura il server SMB utilizzando lo strumento impacket-smbserver
 
 ![Descrizione immagine](./images/Inizio_SMB.jpg)
 
-Questo comando crea una condivisione SMB denominata hax nella directory corrente dell'attaccante in cui l'attaccante può spostare i file della vittima.
+Questo comando crea una condivisione SMB denominata hax nella directory corrente dell'attaccante nella quale l'attaccante può spostare i file della vittima.
 
 ### 2. Navigazione sulla Macchina della Vittima
 
@@ -222,6 +221,10 @@ Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
 L'attaccante può verificare che lo spostamento del file è avvenuto nel terminale che ha usato creare la condivisione SMB:
 
 ![Descrizione immagine](./images/verificata_connessione.png)
+
+Esempio del file log.txt ottenuto:
+
+![Descrizione immagine](./images/log.txt.png)
 
 <br>
 
