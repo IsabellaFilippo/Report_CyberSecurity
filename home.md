@@ -14,6 +14,8 @@
 
 ### Contesto e Importanza della Cybersecurity
 
+<div style="text-align: justify;">
+
 Le minacce cyber sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, spearphishing, furto di credenziali e divulgazione di informazioni sono tra i più pericolosi e diffusi.
 
 ### Obiettivo del Report
@@ -42,7 +44,7 @@ Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui
 
 + Social Media: monitoraggio dei profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per creare attacchi mirati.
 
-+ LinkedIn: identificazione dei dipendenti chiave dell'azienda e delle loro relative informazioni sul ruolo e aui loro interessi professionali.
++ LinkedIn: identificazione dei dipendenti chiave dell'azienda e delle loro relative informazioni sul ruolo e sui loro interessi professionali.
 
 + Whois Lookup: ottenimento delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
 
@@ -50,7 +52,7 @@ Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante ha raccolto molte informazioni pubblice sulla azienza e sui dipendeti.
+Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante raccoglie molte informazioni pubbliche sulla azienza e sui dipendenti.
 <!-- Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. -->
 Dopo aver identificato l'azienda, supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato. A questo punto l'attaccante procede con la scansione della rete utilizzando Nmap:
 
@@ -76,11 +78,11 @@ L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministrator
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-L'attaccante ottiene l'accesso alla shell nell'dispositivo dell'azienda con l'identità dell'amministratore e inizia a navigare tra i file:
+L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda con l'identità dell'amministratore e inizia a navigare tra i file:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande fan della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
+L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
 
 ### Importanza per l'attacco
 
@@ -138,7 +140,8 @@ Alessandro scarica e avvia il programma "Gestore di spesa.exe". Il programma si 
 
 ![Descrizione immagine](./images/Wapp.png)
 
-Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva. Esempio di codice contenito nella applicazione:
+Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva.
+Esempio di codice contenuto nell'applicazione:
 
 ```python
 # Definisci la directory e il nome del file di log
@@ -238,6 +241,8 @@ Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipen
 + Formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette.
 + Monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
 + Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
+
+</div>
 
 <br>
 
