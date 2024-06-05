@@ -28,7 +28,7 @@ L'obiettivo di questo report è analizzare dettagliatamente un attacco composto 
 
 ### Descrizione dell'attacco
 
-L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della vittima. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
+L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
 
 <br>
 
