@@ -16,7 +16,7 @@
 
 <div style="text-align: justify;">
 
-Le minacce cyber sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, spearphishing, furto di credenziali e divulgazione di informazioni sono tra i più pericolosi e diffusi.
+Le cyber minacce sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, spearphishing, furto di credenziali e divulgazione di informazioni sono tra le più pericolose e diffuse.
 
 ### Obiettivo del Report
 
@@ -28,7 +28,7 @@ L'obiettivo di questo report è analizzare dettagliatamente un attacco composto 
 
 ### Descrizione dell'attacco
 
-L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono potrebbero venire utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
+L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle, con impatti potenzialmente devastanti per l'azienda colpita.
 
 <br>
 
@@ -52,9 +52,9 @@ Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
+Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
 <!-- Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. -->
-Dopo aver identificato l'azienda, supponiamo che l'attaccante attraverso Whois Lookup e Shodan, l'attaccante trovi l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi stanno girando sulle porte e quali versioni specifiche di quei servizi sono in uso):
+Dopo aver identificato l'azienda, supponiamo che l'attaccante attraverso Whois Lookup e Shodan trovi l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi stanno girando sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
@@ -62,7 +62,7 @@ L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows
 
 ### Importanza per l'Attacco
 
-La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing (eseguito in seguito). Conoscere i dettagli personali e professionali del bersaglio aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre, l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi che possono essere sfruttate nelle fasi successive dell'attacco.
+La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing (eseguito in seguito). Conoscere i dettagli personali e professionali del bersaglio aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi, che possono essere sfruttate nelle fasi successive dell'attacco.
 
 <br>
 
@@ -88,7 +88,7 @@ L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti 
 
 La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per condurre un attacco di forza bruta sono cruciali per l'attaccante. Ottenere l'accesso come amministratore consente all'attaccante di eseguire operazioni dannose all'interno della rete, come il furto di dati sensibili, la modifica delle configurazioni di sistema o l'esfiltrazione dei dati.
 
-Inoltre, l'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottolinea l'importanza di implementare pratiche di sicurezza robuste, come l'uso di password complesse e uniche e la gestione adeguata degli account degli utenti, al fine di proteggere la rete da attacchi di forza bruta e intrusioni non autorizzate.
+L'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottolinea l'importanza di implementare pratiche di sicurezza robuste, come l'uso di password complesse e uniche e la gestione adeguata degli account degli utenti, al fine di proteggere la rete da attacchi di forza bruta e intrusioni non autorizzate.
 
 <br> 
 
@@ -96,29 +96,29 @@ Inoltre, l'utilizzo delle credenziali predefinite "Amministratore" e "Password" 
 
 ---
 
-Lo spearphishing è una forma di phishing mirata in cui l'attaccante invia email fraudolente a individui specifici all'interno di un'organizzazione, utilizzando informazioni raccolte durante la fase di enumerazione per rendere l'email più credibile.
+Lo spearphishing è una forma di phishing mirata in cui l'attaccante invia email fraudolente a individui specifici all'interno di un'organizzazione utilizzando informazioni raccolte durante la fase di enumerazione per rendere l'email più credibile.
 L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante decide di inviare il seguente messaggio al bersaglio:
 
 <br>
 
 <blockquote>
-Da: Staff@gestoredispesa.com
+Da: teamgestorespese@gmail.com
 
-A: <Alessandro@finanzaviva.com>
+A: <Alessandro.finanzaviva@gmail.com>
 
 Oggetto: Partecipazione Esclusiva al Test del Nuovo Software di Gestione delle Spese
 
 Ciao Alessandro,
 
-Spero che tu stia bene! Sono entusiasta di annunciarti che sei stato scelto per partecipare in esclusiva al test del nostro nuovo software per la Gestione Personale delle Spese.
+Spero che tu stia bene! Siamo entusiasti di annunciarti che sei stato scelto per partecipare in esclusiva al test del nostro nuovo software per la Gestione Personale delle Spese.
 
-Abbiamo notato il tuo interesse e la tua competenza nel campo e crediamo che il tuo feedback possa essere estremamente prezioso per noi mentre continuiamo a perfezionare e migliorare il nostro prodotto.
+Abbiamo notato il tuo interesse e la tua competenza nel campo finanziario e crediamo che il tuo feedback possa essere estremamente prezioso per noi mentre continuiamo a perfezionare e migliorare il nostro prodotto.
 
 Il nostro team ha fatto un duro lavoro per sviluppare uno strumento intuitivo e potente che semplifichi la gestione delle spese personali, offrendo funzionalità avanzate e una user experience impeccabile.
 
 Vorremmo invitarti a provare il software in anteprima e condividere con noi le tue opinioni, suggerimenti e eventuali problemi che potresti riscontrare durante l'utilizzo. Il tuo contributo sarà fondamentale per aiutarci a rendere il software il migliore possibile prima del lancio ufficiale.
 
-Ti inviamo il link al software e le istruzioni per iniziare il test. Se hai domande o hai bisogno di assistenza, non esitare a contattarci. Non vediamo l'ora di lavorare con te e di rendere questo software un successo insieme!
+Ti inviamo il link al software per iniziare il test. Se hai domande o hai bisogno di assistenza, non esitare a contattarci. Non vediamo l'ora di lavorare con te e di rendere questo software un successo insieme!
 
 Cordiali saluti,
 
