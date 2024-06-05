@@ -20,7 +20,7 @@ Le minacce cyber sono in continua evoluzione e possono avere conseguenze devasta
 
 ### Obiettivo del Report
 
-L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger (come allegato mail), furto di credenziali e esfiltrazione di informazioni.
+L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger (come allegato mail), furto di credenziali e estrazione dei dati tramite SMB.
 
 ### Strumenti utilizzati
 
