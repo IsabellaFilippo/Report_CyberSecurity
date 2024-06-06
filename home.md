@@ -244,7 +244,7 @@ Gli eventi chiave dell'attacco sono:
 Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
 
 + configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati;
-+ gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionar;
++ gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari;
 + formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette;
 + monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
 
