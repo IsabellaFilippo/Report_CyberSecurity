@@ -126,7 +126,7 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è un file malevolo.
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è il file malevolo che contiene il keylogger.
 
 ### Tecniche Utilizzate
 
@@ -235,12 +235,18 @@ Esempio del file log.txt ottenuto:
 
 ---
 
+Gli eventi chiave dell'attacco sono:
+
++ l'assenza di limitazione all'accesso dei servizi SMB e SSH;
++ l'uso di credenziali predefinite da parte dell'amministratore;
++ inoltre è stato necessario l'aiuto dell'utente per eseguire il programma malevolo.
+
 Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
 
-+ Configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati.
-+ Gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari.
-+ Formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette.
-+ Monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
++ configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati;
++ gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionar;
++ formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette;
++ monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
 
 
 </div>
