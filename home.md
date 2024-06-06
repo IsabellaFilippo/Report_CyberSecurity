@@ -126,7 +126,7 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è un file malevolo.
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è un file malevolo.
 
 ### Tecniche Utilizzate
 
