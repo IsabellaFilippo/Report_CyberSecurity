@@ -229,6 +229,8 @@ Esempio del file log.txt ottenuto:
 
 ![Descrizione immagine](./images/log.txt.png)
 
+Dai tasti digitati da Alessandro l'attaccante può supporre che il bersaglio abbia visitato un sito di nome "intesa" e che "AlessandroFV" sia lo username, mentre "gigipolpetta" sia la password.
+
 <br>
 
 ## **Conclusioni**
@@ -247,7 +249,6 @@ Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipen
 + gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari;
 + formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette;
 + monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
-
 
 </div>
 
