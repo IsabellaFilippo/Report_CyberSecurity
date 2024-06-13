@@ -12,23 +12,13 @@
 
 ---
 
-### Contesto e Importanza della Cybersecurity
-
-<div style="text-align: justify;">
-
-Le cyber minacce sono in continua evoluzione e possono avere conseguenze devastanti sulla privacy, sull'integrità dei dati e sulla reputazione delle aziende. Tra le varie tecniche utilizzate dagli attaccanti, spearphishing, furto di credenziali e divulgazione di informazioni sono tra le più pericolose e diffuse.
-
-### Obiettivo del Report
-
-L'obiettivo di questo report è analizzare dettagliatamente un attacco composto da diverse fasi: enumerazione, spearphishing, iniezione di un keylogger (come allegato mail), furto di credenziali e estrazione dei dati tramite SMB.
-
-### Strumenti utilizzati
-
- Gli strumenti utilizzati per eseguire l'attacco comprendono Kali Linux e una macchina virtuale Windows 10 su VirtualBox.
-
 ### Descrizione dell'attacco
 
 L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle, con impatti potenzialmente devastanti per l'azienda colpita.
+
+### Strumenti utilizzati
+
+ L'attaccante opera da Kali Linux, mentre il bersaglio opera su Windows 2010. L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger vista su YouTube [4]. L'arricchimento riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinker di python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller di Python, personalizzando anche l'icona dell'eseguibile.
 
 <br>
 
@@ -40,29 +30,24 @@ L'enumerazione è una fase preliminare degli attacchi informatici.
 
 ### Tecniche di Enumerazione
 
-Gli attaccanti utilizzano diverse tecniche per raccogliere informazioni, tra cui anche l'utilizzo di strumenti automatizzati:
+L'attaccante utilizza diverse tecniche per raccogliere informazioni, tra cui:
 
-+ Social Media: monitoraggio dei profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per creare attacchi mirati.
++ Social Media: monitora i profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per l'attacco.
 
-+ LinkedIn: identificazione dei dipendenti chiave dell'azienda e delle loro relative informazioni sul ruolo e sui loro interessi professionali.
++ LinkedIn: identifica alcuni dipendenti chiave dell'azienda e raccoglie informazioni sul loro ruolo e sui loro interessi professionali.
 
-+ Whois Lookup: ottenimento delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
++ Whois Lookup: ottiene delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
 
-+ Nmap: strumento di scansione di rete ampiamente utilizzato per raccogliere informazioni su dispositivi e servizi in una rete. Può essere utilizzato per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
++ Nmap: utilizza questo strumento di scansione di rete sui dispositivi e servizi in della rete del bersaglio per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
 
 ### Scoperte nella fase di enumerazione
 
-Supponiamo che un attaccante voglia colpire un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
-<!-- Durante la fase di enumerazione, l'attaccante può utilizzare LinkedIn per identificare un dipendente chiave, ad esempio un analista finanziario e, monitorando i suoi profili social, l'attaccante scopre che questo dipendente è particolarmente interessato agli investimenti e alle criptovalute. -->
-Dopo aver identificato l'azienda, supponiamo che l'attaccante attraverso Whois Lookup e Shodan trovi l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi stanno girando sulle porte e quali versioni specifiche di quei servizi sono in uso):
+L'attaccante è interessato a un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
+L'attaccante attraverso Whois Lookup e Shodan trova l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
 L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui sono attivi i servizi SSH sulla porta 22 e SMB.
-
-### Importanza per l'Attacco
-
-La fase di enumerazione è cruciale perché fornisce all'attaccante le informazioni necessarie per personalizzare l'attacco di spearphishing (eseguito in seguito). Conoscere i dettagli personali e professionali del bersaglio aumenta la probabilità che la vittima caschi nell'inganno, rendendo l'attacco più efficace. Inoltre l'enumerazione può rivelare vulnerabilità specifiche dell'azienda o dei suoi sistemi, che possono essere sfruttate nelle fasi successive dell'attacco.
 
 <br>
 
@@ -70,7 +55,7 @@ La fase di enumerazione è cruciale perché fornisce all'attaccante le informazi
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB aperti sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa le opzioni -L e -P per specificare rispettivamente due dizionari costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB attivi sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa le opzioni -L e -P per specificare rispettivamente due dizionari costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
@@ -78,17 +63,17 @@ L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministrator
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda con l'identità dell'amministratore e inizia a navigare tra i file:
+L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda, con il comando whoami verifica che la shell ha l'identità dell'amministratore. 
+
+L'attaccante naviga tra i file e scopre la presenza di un altro utente: Alessandro:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-L'attaccante scopre la presenza di un altro utente: Alessandro. Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
+ Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
-### Importanza per l'attacco
+![Descrizione immagine](./images/Bigl_da_visita.png)
 
-La scoperta delle credenziali dell'amministratore e l'utilizzo di Hydra per condurre un attacco di forza bruta sono cruciali per l'attaccante. Ottenere l'accesso come amministratore consente all'attaccante di eseguire operazioni dannose all'interno della rete, come il furto di dati sensibili, la modifica delle configurazioni di sistema o l'esfiltrazione dei dati.
-
-L'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottolinea l'importanza di implementare pratiche di sicurezza robuste, come l'uso di password complesse e uniche e la gestione adeguata degli account degli utenti, al fine di proteggere la rete da attacchi di forza bruta e intrusioni non autorizzate.
+L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
 <br> 
 
@@ -96,8 +81,7 @@ L'utilizzo delle credenziali predefinite "Amministratore" e "Password" sottoline
 
 ---
 
-Lo spearphishing è una forma di phishing mirata in cui l'attaccante invia email fraudolente a individui specifici all'interno di un'organizzazione utilizzando informazioni raccolte durante la fase di enumerazione per rendere l'email più credibile.
-L'attaccante utilizza le informazioni raccolte su Alessandro, un dipendente di "Finanza Viva" noto per il suo interesse nella finanza e negli investimenti, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante decide di inviare il seguente messaggio al bersaglio:
+L'attaccante utilizza le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante scrive il seguente testo della e-mail:
 
 <br>
 
@@ -126,13 +110,22 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. In allegato all'email, c'è un programma di nome "Gestore di spesa.exe" che è il file malevolo che contiene il keylogger.
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo che contiene il keylogger.
 
-### Tecniche Utilizzate
+### Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-+ Personalizzazione: L'email è personalizzata per Alessandro, menzionando il suo interesse nella finanza e negli investimenti.
-+ Finto Mittente: L'email appare provenire da una fonte affidabile nel settore finanziario.
-+ Link Malevolo: L'email contiene un link a un file malevolo al cui interno c'è keylogger.
+L'attaccante programma il "Gestore di spesa" con Python, nel codice sorgente inserisce alla fine il keylogger.
+L'attaccante utilizza la libreria Tkinker di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp scelta dall'attaccante. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+
+![Descrizione immagine](./images/Cod_compl.png)
+
+L'attaccante salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller che prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer che non hanno Python installato. L'attaccante sceglie una icona a suo piacimento e la converte in .ico, dopo aver caricato la libreria pyinstaller sul proprio sistema, esegue il seguente comando: 
+```shell
+pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
+```
+Questo comando creerà nella directory scelta dall'attaccante il file Gestore_di_spesa.exe con l'immagine scelta dall'attaccante. Successivamente l'attaccante per non destare sospetti, cambia il nome dell'eseguibile in "Manager Spesa".
+
+![Descrizione immagine](./images/file.exe.png)
 
 ### Funzionamento del Software Malevolo
 
@@ -141,35 +134,6 @@ Alessandro scarica e avvia il programma "Gestore di spesa.exe". Il programma si 
 ![Descrizione immagine](./images/Wapp.png)
 
 Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva.
-Esempio di codice contenuto nell'applicazione:
-
-```python
-# Definisci la directory e il nome del file di log
-log_directory = r"C:\Windows\Temp"
-log_file_name = "log.txt"
-
-log_file_path = os.path.join(log_directory, log_file_name)
-# Funzione per loggare le chiavi premute
-def on_press(key):
-    try:
-        print(f"Premuto: {key.char}")
-        with open(log_file_path, "a") as f:
-            f.write(f"{key.char}")
-    except AttributeError:
-        print(f"Premuto: {key}")
-        with open(log_file_path, "a") as f:
-            f.write(f"{key}\n")
-
-# Funzione per loggare le chiavi rilasciate
-def on_release(key):
-    print(f"Rilasciato: {key}")
-
-# Avvia il keylogger
-with Listener(on_press=on_press) as listener:
-    listener.join()
-```
-
-Questo codice rappresenta un esempio di un keylogger scritto in Python, che registra tutti i tasti premuti e li salva in un file log.txt nella cartella C:\Windows\Temp.
 
 Dopo la chiusura dell'applicazione, si può notare come in gestione delle attività sia in esecuzione il Gestore di spesa in background:
 
@@ -182,10 +146,6 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 + Nomi utente e password per l'accesso ai sistemi aziendali.
 + Dati personali e finanziari inseriti nei siti web.
 + Comunicazioni via email e chat.
-
-### Implicazioni e Impatti
-
-L'installazione del programma malevolo può portare all'accesso non autorizzato ai sistemi aziendali di "Finanza Viva", dei conti bancari e di qualsiasi altro servizio fondamentale all'azienza. Può avere conseguenze devastanti: furto di credenziali, compromissione di dati sensibili e danni reputazionali.
 
 <br>
 
@@ -243,13 +203,6 @@ Gli eventi chiave dell'attacco sono:
 + l'uso di credenziali predefinite da parte dell'amministratore;
 + inoltre è stato necessario l'aiuto dell'utente per eseguire il programma malevolo.
 
-Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipendenti per prevenire e mitigare tali attacchi. Per proteggersi da questo tipo di attacco, le aziende possono adottare diverse misure di sicurezza:
-
-+ configurazione di Firewall e Regole di Accesso: Limitare l'accesso ai servizi SMB solo a dispositivi e utenti autorizzati;
-+ gestione delle Password: Cambiare le password di default e utilizzare password non comuni e possibilmente non esistenti nei dizionari;
-+ formazione dei Dipendenti: Educare i dipendenti sui rischi del phishing e su come riconoscere email sospette;
-+ monitoraggio del Traffico di Rete: Monitorare e analizzare il traffico di rete per rilevare attività sospette.
-
 </div>
 
 <br>
@@ -266,3 +219,12 @@ Le aziende devono adottare misure di sicurezza efficaci e formare i propri dipen
 
 3. Trasferimento di file da e verso il server SMB dell'utente malintenzionato:
     + <https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server>
+
+4. File preso come esempio per la programmazione del keylogger:
+    + https://www.youtube.com/watch?v=kQFl-MVrvwc&t=211s
+
+5. Costruzione di gestore di spesa.exe con la libreria tkinter di python:
+    https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/
+
+6. Creazione dell'eseguibile con la libreria pyinstaller:
+    + https://pyinstaller.org/en/stable/
