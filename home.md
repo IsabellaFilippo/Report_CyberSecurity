@@ -18,7 +18,7 @@ Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumera
 
 ### Strumenti utilizzati
 
- Io opererò da Kali Linux, mentre il bersaglio opererò su Windows 2010. L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti DA RIVEDERE. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinker di python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller di Python, personalizzando anche l'icona dell'eseguibile.
+ Io opererò da Kali Linux, mentre il bersaglio opererò su Windows 2010. L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti DA RIVEDERE. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller di Python, personalizzando anche l'icona dell'eseguibile.
 
 <br>
 
