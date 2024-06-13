@@ -14,11 +14,11 @@
 
 ### Descrizione dell'attacco
 
-L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l'attaccante raccoglie informazioni su un'azienda e i suoi dipendenti. Successivamente, viene lanciato un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger nel sistema della sottoforma di software lecito. Il keylogger permette all'attaccante di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle, con impatti potenzialmente devastanti per l'azienda colpita.
+Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumerazione, dove raccolgo le informazioni su un'azienda e i suoi dipendenti. Successivamente, lancio un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger, con l'aiuto del bersaglio, sottoforma di software lecito. Il keylogger mi permetterà di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle.
 
 ### Strumenti utilizzati
 
- L'attaccante opera da Kali Linux, mentre il bersaglio opera su Windows 2010. L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger vista su YouTube [4]. L'arricchimento riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinker di python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller di Python, personalizzando anche l'icona dell'eseguibile.
+ Io opererò da Kali Linux, mentre il bersaglio opererò su Windows 2010. L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti DA RIVEDERE. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinker di python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller di Python, personalizzando anche l'icona dell'eseguibile.
 
 <br>
 
@@ -26,28 +26,28 @@ L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l
 
 ---
 
-L'enumerazione è una fase preliminare di questo attacco.
+L'enumerazione è la fase preliminare di questo attacco.
 
 ### Tecniche di Enumerazione
 
-L'attaccante utilizza diverse tecniche per raccogliere informazioni, tra cui:
+Come attaccante posso utilizzare diverse tecniche per identificare e raccogliere informazioni su un bersaglio, tra cui:
 
-+ Social Media: monitora i profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per l'attacco.
++ Social Media: monitorando i profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per l'attacco.
 
-+ LinkedIn: identifica alcuni dipendenti chiave dell'azienda e raccoglie informazioni sul loro ruolo e sui loro interessi professionali.
++ LinkedIn: identificando alcuni dipendenti chiave dell'azienda e raccoglie informazioni sul loro ruolo e sui loro interessi professionali.
 
-+ Whois Lookup: ottiene delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
++ Whois Lookup: ottenendo delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
 
-+ Nmap: utilizza questo strumento di scansione di rete sui dispositivi e servizi in della rete del bersaglio per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
++ Nmap: utilizzando questo strumento di scansione di rete sui dispositivi e servizi in della rete del bersaglio per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
 
 ### Scoperte nella fase di enumerazione
 
-L'attaccante è interessato a un'azienda del settore finanziario di nome "Finanza Viva". Durante la fase di enumerazione l'attaccante raccoglie molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
-L'attaccante attraverso Whois Lookup e Shodan trova l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto l'attaccante procede con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
+Sono interessata a un'azienda del settore finanziario di nome "Finanza Viva" (non esiste realmente). Durante la fase di enumerazione ho raccolto molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
+Attraverso Whois Lookup e Shodan trovo l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
-L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445.
+L'output rivela che l'azienda "Finanza Viva" ha configurato una device Windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445 (COS'+ WINDOWS NETBIOS?).
 
 <br>
 
@@ -55,25 +55,25 @@ L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB attivi sulla rete dell'azienda "Finanza Viva", l'attaccante procede con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa le opzioni -L e -P per specificare rispettivamente due dizionari costruitosi di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB attivi sulla rete dell'azienda "Finanza Viva", procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. L'attaccante usa le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
-L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministratore, e procede con l'autenticazione a SSH.
+Scopro l'uso di credenziali predefinite da parte dell'amministratore, e procedo con l'autenticazione a SSH.
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda, con il comando whoami verifica l'identità della shell (che è quella dell'amministratore). 
+Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore). 
 
-L'attaccante naviga tra i file e scopre la presenza di un altro utente: Alessandro:
+Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Alessandro:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-Nella cartella Documents di Alessandro, l'attaccante trova un file di nome biglietto da visita, lo apre e trova le informazioni di contatto di Alessandro come il nome completo e la mail. 
+Nella cartella Documents di Alessandro, trovo un file di nome biglietto da visita, lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
-L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
+Ritorno alla fase di enumerazione e attraverso LinkedIn scopro che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
 <br> 
 
@@ -81,7 +81,7 @@ L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che 
 
 ---
 
-L'attaccante utilizza le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. L'attaccante scrive il seguente testo della e-mail:
+Utilizzo le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. Il sottostante è il testo della mail che ho scritto:
 
 <br>
 
