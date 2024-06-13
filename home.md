@@ -26,7 +26,7 @@ L'attacco analizzato in questo report inizia con la fase di enumerazione, dove l
 
 ---
 
-L'enumerazione è una fase preliminare degli attacchi informatici.
+L'enumerazione è una fase preliminare di questo attacco.
 
 ### Tecniche di Enumerazione
 
@@ -47,7 +47,7 @@ L'attaccante attraverso Whois Lookup e Shodan trova l'indirizzo IP 10.0.2.4 asso
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
-L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui sono attivi i servizi SSH sulla porta 22 e SMB.
+L'output rivela che l'azienda "Finanza Viva" ha configurato una macchina windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445.
 
 <br>
 
@@ -63,13 +63,13 @@ L'attaccante scopre l'uso di credenziali predefinite da parte dell'amministrator
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda, con il comando whoami verifica che la shell ha l'identità dell'amministratore. 
+L'attaccante ottiene l'accesso alla shell nel dispositivo dell'azienda, con il comando whoami verifica l'identità della shell (che è quella dell'amministratore). 
 
 L'attaccante naviga tra i file e scopre la presenza di un altro utente: Alessandro:
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
- Tra i documenti del bersaglio l'attaccante trova le informazioni di contatto di Alessandro come la mail. L'attaccante ritorna alla fase di enumerazione e attraverso LinkedIn scopre che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
+Nella cartella Documents di Alessandro, l'attaccante trova un file di nome biglietto da visita, lo apre e trova le informazioni di contatto di Alessandro come il nome completo e la mail. 
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
@@ -110,16 +110,16 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo che contiene il keylogger.
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo creato dall'attacante.
 
 ### Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-L'attaccante programma il "Gestore di spesa" con Python, nel codice sorgente inserisce alla fine il keylogger.
+L'attaccante programma il "Gestore di spesa" con Python e nel codice sorgente inserisce il keylogger.
 L'attaccante utilizza la libreria Tkinker di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp scelta dall'attaccante. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
 ![Descrizione immagine](./images/Cod_compl.png)
 
-L'attaccante salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller che prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer che non hanno Python installato. L'attaccante sceglie una icona a suo piacimento e la converte in .ico, dopo aver caricato la libreria pyinstaller sul proprio sistema, esegue il seguente comando: 
+L'attaccante salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. L'attaccante sceglie una icona a suo piacimento e la converte in .ico, dopo aver caricato la libreria pyinstaller sul proprio sistema, esegue il seguente comando: 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 ```
@@ -129,11 +129,11 @@ Questo comando creerà nella directory scelta dall'attaccante il file Gestore_di
 
 ### Funzionamento del Software Malevolo
 
-Alessandro scarica e avvia il programma "Gestore di spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
+Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
 ![Descrizione immagine](./images/Wapp.png)
 
-Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva.
+Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva e inizia a registrare qualsiasi tasto premuto dall'utente.
 
 Dopo la chiusura dell'applicazione, si può notare come in gestione delle attività sia in esecuzione il Gestore di spesa in background:
 
@@ -143,7 +143,7 @@ Dopo la chiusura dell'applicazione, si può notare come in gestione delle attivi
 
 Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informazioni digitate da Alessandro, inclusi:
 
-+ Nomi utente e password per l'accesso ai sistemi aziendali.
++ Nomi utente e password in chiaro e nascosti.
 + Dati personali e finanziari inseriti nei siti web.
 + Comunicazioni via email e chat.
 
@@ -153,7 +153,7 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 ---
 
-Dopo che l'utente ha scaricato il programma malevolo e averlo eseguito, il keylogger inizia a raccogliere i dati sensibili. Ora l'attaccante può sfruttare il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
+L'attaccante apetta un periodo di tempo ragionevole prima di estrarre il file con le informazioni. In seguito l'attaccante sfrutta il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
 
 ### 1. Configurazione del Server SMB sull'Attaccante
 
