@@ -14,7 +14,7 @@
 
 ### Descrizione dell'attacco
 
-Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumerazione, dove raccolgo le informazioni su un'azienda e i suoi dipendenti. Successivamente, lancio un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger, con l'aiuto del bersaglio, sottoforma di software lecito. Il keylogger mi permetterà di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle.
+Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumerazione, dove raccolgo le informazioni su un'azienda ipotetica. Successivamente, lancio un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger, con l'aiuto del bersaglio, sottoforma di software lecito. Il keylogger mi permetterà di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle.
 
 ### Strumenti utilizzati
 
