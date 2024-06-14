@@ -47,7 +47,7 @@ Attraverso Whois Lookup e Shodan trovo l'indirizzo IP 10.0.2.4 associato (suppon
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
-L'output rivela che l'azienda "Finanza Viva" ha configurato una device Windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445 (COS'+ WINDOWS NETBIOS?).
+L'output rivela che l'azienda "Finanza Viva" ha configurato una device Windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445.
 
 <br>
 
