@@ -228,3 +228,6 @@ Gli eventi chiave dell'attacco sono:
 
 6. Creazione dell'eseguibile con la libreria pyinstaller:
     + https://pyinstaller.org/en/stable/
+
+7. Impacket scripts:
+	+ https://www.kali.org/tools/impacket-scripts/
