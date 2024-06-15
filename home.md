@@ -116,9 +116,11 @@ Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia gr
 ![Descrizione immagine](./images/Cod_compl.png)
 
 Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
+
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 ```
+
 Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
 
 ![Descrizione immagine](./images/file.exe.png)
@@ -195,9 +197,10 @@ Dai tasti digitati da Alessandro posso supporre che il bersaglio abbia visitato 
 
 Gli eventi chiave dell'attacco sono:
 
++ la non regolamentazione dei privilegi dell'utente;
 + l'assenza di limitazione all'accesso dei servizi SMB e SSH;
 + l'uso di credenziali predefinite da parte dell'amministratore;
-+ inoltre è stato necessario l'aiuto dell'utente per eseguire il programma malevolo.
++ è stato necessario l'aiuto dell'utente per eseguire il programma malevolo.
 
 </div>
 
