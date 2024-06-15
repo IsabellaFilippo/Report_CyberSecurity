@@ -18,15 +18,15 @@ In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia 
 
 ### 2. Strumenti utilizzati
 
-Io opero da Kali Linux [12] (su Virtual Box [11]) e Windows 11 (SO nativo del mio dispositivo), mentre il bersaglio opera su Windows 10 Home [13] (su Virtual Box [11]).
+Io opero da Kali Linux **[12]** (su Virtual Box **[11]**) e Windows 11 (SO nativo del mio dispositivo), mentre il bersaglio opera su Windows 10 Home **[13]** (su Virtual Box **[11]**).
 
-Da Kali uso Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com al link [3].
+Da Kali uso Nmap **[1]** per investigare sull’indirizzo IP, Hydra **[2]** per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket **[7]** per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com al link **[3]**.
 
-Da Windows 11: ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5], in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube [4], che ho poi migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti e l'inserimento della data e dell'ora.
+Da Windows 11: su Visual Studio Code **[8]** ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python **[5]**, in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube **[4]**, che ho poi migliorato con l'aiuto di BlackBox AI **[10]**; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti e l'inserimento della data e dell'ora.
 
 Successivamete ho riunito entrambi due programmi in un singolo script.
 
-Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
+Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria Pyinstaller **[6]** di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
 Affinche l'applicazione fosse compatibile con il sistema Windows 10, ho dovuto usare la libreria pyinstaller su windows 11 perchè pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo; quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL (Dynamic-Link Libraries) su Windows.
 
@@ -325,7 +325,8 @@ Gli eventi chiave dell'attacco sono:
 
 ---
 
-[1]:  Nmap: Nmap Official Website: <https://nmap.org/>
+1.  Nmap:
+    + <https://nmap.org/>
 
 2. Hydra:
     + van Hauser, "Hydra - A very fast network logon cracker," THC, 2023. Disponibile: <https://github.com/vanhauser-thc/thc-hydra>
