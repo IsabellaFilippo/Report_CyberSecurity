@@ -18,7 +18,7 @@ Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumera
 
 ### Strumenti utilizzati
 
- Io opererò da Kali Linux, mentre il bersaglio opererò su Windows 2010. Userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento del codice relativo al key logger riguarda la scelta della directory per salvare il file log.txt, e l'aggiunta della registrazione dei tasti tenuti premuti DA RIVEDERE. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw (segue la spegazione) e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile.
+ Io opererò da Kali Linux, mentre il bersaglio opererà su Windows 2010. Userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento del codice relativo al key logger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
 <br>
 
@@ -31,8 +31,6 @@ L'enumerazione è la fase preliminare di questo attacco.
 ### Tecniche di Enumerazione
 
 Come attaccante posso utilizzare diverse tecniche per identificare e raccogliere informazioni su un bersaglio, tra cui:
-
-+ Social Media: monitorando i profili social dei dipendenti per raccogliere informazioni personali e professionali che possono essere utilizzate per l'attacco.
 
 + LinkedIn: identificando alcuni dipendenti chiave dell'azienda e raccoglie informazioni sul loro ruolo e sui loro interessi professionali.
 
@@ -119,7 +117,7 @@ Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia gr
 
 ![Descrizione immagine](./images/Cod_compl.png)
 
-Ho salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione l'attaccante trasforma lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico, dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
+Ho salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico, dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 ```
