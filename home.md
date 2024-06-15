@@ -61,11 +61,8 @@ Scopro l'uso di credenziali predefinite da parte dell'amministratore, e procedo 
 
 Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore). 
 
-Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Alessandro:
-
-![Descrizione immagine](./images/Discover_utenti.png)
-
-Nella cartella Documents di Alessandro, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
+Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Alessandro.
+Nella sua cartella Documents, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
@@ -123,8 +120,6 @@ pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 
 Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
 
-![Descrizione immagine](./images/file.exe.png)
-
 ### Funzionamento del Software Malevolo
 
 Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
@@ -132,10 +127,6 @@ Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si pre
 ![Descrizione immagine](./images/Wapp.png)
 
 Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva e inizia a registrare qualsiasi tasto premuto dall'utente.
-
-Dopo la chiusura dell'applicazione, si può notare come in gestione delle attività sia in esecuzione il Gestore di spesa in background:
-
-![Descrizione immagine](./images/Gestattsp.png)
 
 ### Raccolta dei Dati
 
