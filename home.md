@@ -14,7 +14,7 @@
 
 ### Descrizione dell'attacco
 
-In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di conoscere l'indirizzo IP di un'azienda ipotetica (per costruzione l'indirizzo IP sarà privato). Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda conoscendo l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
 ### Strumenti utilizzati
 
@@ -39,11 +39,11 @@ La demo
 
 ---
 
-Sono interessata a un'azienda del settore finanziario di nome "Finanza Viva" (non esiste realmente) e conosco l'indirizzo IP della azienda 10.0.2.4. A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
+Sono interessata a un'azienda del settore finanziario, sono sulla stessa rete e conosco l'indirizzo IP 10.0.2.4 di un dispositivo aziendale. A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
-L'output rivela che l'azienda "Finanza Viva" ha configurato una device Windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445.
+L'output rivela che l'azienda ha configurato una device Windows in cui sono attivi i servizi SSH sulla porta 22 e SMB sulla porta 445.
 
 <br>
 
@@ -51,7 +51,7 @@ L'output rivela che l'azienda "Finanza Viva" ha configurato una device Windows i
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB attivi sulla rete dell'azienda "Finanza Viva", procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB attivi sul dispositivo, procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
@@ -66,7 +66,7 @@ Nella sua cartella Documents, trovo un file di nome "biglietto da visita", lo ap
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
-Attraverso LinkedIn scopro che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
+Faccio una ricerca sui social media e scopro che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
 <br> 
 
