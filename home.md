@@ -348,5 +348,5 @@ Gli eventi chiave dell'attacco sono:
 12. Kali Linux versione virtual machine:
     + https://www.kali.org/get-kali/#kali-virtual-machines
 
-13. Windows 10 home:
+13. Windows 10 Home:
     + https://www.microsoft.com/it-it/software-download/windows10
