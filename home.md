@@ -14,7 +14,7 @@
 
 ### 1. Descrizione dell'attacco
 
-In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda e conoscendo l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda e conoscendo l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
 ### 2. Strumenti utilizzati
 
