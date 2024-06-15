@@ -120,6 +120,8 @@ pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 
 Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
 
+L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del file) con il corpo citato prima.
+
 ### Funzionamento del Software Malevolo
 
 Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
