@@ -14,11 +14,11 @@
 
 ### Descrizione dell'attacco
 
-In questa demo suppongo di essere un attaccante, l'attacco che ho creato inizia con il presupposto di conoscere l'indirizzo IP di un'azienda ipotetica (per costruzione l'indirizzo IP sarà privato). Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di conoscere l'indirizzo IP di un'azienda ipotetica (per costruzione l'indirizzo IP sarà privato). Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
 ### Strumenti utilizzati
 
- Io opererò da Kali Linux e Windows 11, mentre il bersaglio opererà su Windows 2010. Da Kali userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). Da Windows: l'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4], inseguito l'ho migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
+ Io opererò da Kali Linux [12] (su Virtual Box [11]) e Windows 11, mentre il bersaglio opererà su Windows 2010 Home [13] (su Virtual Box [11]). Da Kali userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). Da Windows: l'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4], inseguito l'ho migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
  Affinche l'applicazione fosse compatibile con il sistema windows 2010, ho dovuto usare la libreria pyinstaller su windows 11 perchè pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo, quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL (Dynamic-Link Libraries) su Windows.
 
@@ -233,3 +233,12 @@ Gli eventi chiave dell'attacco sono:
 
 10. BlackBox AI:
     + https://www.blackbox.ai/
+
+11. Virtual Box:
+    + https://www.virtualbox.org/
+
+12. Kali Linux versione virtual machine:
+    + https://www.kali.org/get-kali/#kali-virtual-machines
+
+13. Windows 10 home:
+    + https://www.microsoft.com/it-it/software-download/windows10
