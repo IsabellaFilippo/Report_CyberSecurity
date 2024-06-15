@@ -91,6 +91,8 @@ Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.ex
 
 L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del file) con il corpo citato prima.
 
+### Invio mail personalizzata
+
 Utilizzo le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. Il sottostante è il testo della mail che ho scritto:
 
 <br>
