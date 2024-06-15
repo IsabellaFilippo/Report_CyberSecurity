@@ -126,7 +126,7 @@ L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del f
 
 Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
-![Descrizione immagine](./images/Wapp.png)
+![Descrizione immagine](./images/Gestore.png)
 
 Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva e inizia a registrare qualsiasi tasto premuto dall'utente.
 
