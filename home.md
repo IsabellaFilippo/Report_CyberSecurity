@@ -325,8 +325,7 @@ Gli eventi chiave dell'attacco sono:
 
 ---
 
-1. Nmap:
-    + Nmap Official Website: <https://nmap.org/>
+[1]:  Nmap: Nmap Official Website: <https://nmap.org/>
 
 2. Hydra:
     + van Hauser, "Hydra - A very fast network logon cracker," THC, 2023. Disponibile: <https://github.com/vanhauser-thc/thc-hydra>
