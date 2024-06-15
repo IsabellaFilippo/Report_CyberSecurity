@@ -12,11 +12,11 @@
 
 ---
 
-### Descrizione dell'attacco
+### 1. Descrizione dell'attacco
 
 In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda conoscendo l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
-### Strumenti utilizzati
+### 2. Strumenti utilizzati
 
  Io opererò da Kali Linux [12] (su Virtual Box [11]) e Windows 11, mentre il bersaglio opererà su Windows 2010 Home [13] (su Virtual Box [11]). Da Kali userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). Da Windows: l'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4], inseguito l'ho migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
@@ -29,9 +29,9 @@ In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia 
 + Attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
 + Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e modificando la regole riguardanti ICMP Echo Request e TCP/UDP.
 
-### Note sulla demo
+### 3. Note sulla demo
 
-La demo 
+La demo non comprende le modifiche delle configurazioni relative ai sistemi operativi; il video presenta alcuni tagli e velocizzazioni a causa della lentezza della macchina virtuale con il SO Windows 10 Home.
 
 <br>
 
@@ -74,7 +74,7 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 
 ---
 
-### Programmazione del Keylogger e dell'interfaccia grafica del gestore
+### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
 Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
@@ -197,7 +197,7 @@ Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.ex
 
 L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del file) con il corpo citato prima.
 
-### Invio mail personalizzata
+### 2. Invio mail personalizzata
 
 Utilizzo le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. Il sottostante è il testo della mail che ho scritto:
 
@@ -230,7 +230,7 @@ Il Team di Gestore di Spesa
 
 Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Gestore di spesa.exe" che è il file malevolo creato da me (l'attaccante).
 
-### Funzionamento del Software Malevolo
+### 3. Funzionamento del Software Malevolo
 
 Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si presenta come una legittima applicazione di gestione delle spese, consentendo all'utente di inserire e monitorare entrate e uscite.
 
@@ -238,7 +238,7 @@ Alessandro scarica e avvia il programma "Manager spesa.exe". Il programma si pre
 
 Tuttavia, al momento della chiusura dell'applicazione, il keylogger nascosto si attiva e inizia a registrare qualsiasi tasto premuto dall'utente.
 
-### Raccolta dei Dati
+### 4. Raccolta dei Dati
 
 Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informazioni digitate da Alessandro, inclusi:
 
