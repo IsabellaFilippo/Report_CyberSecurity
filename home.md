@@ -14,11 +14,24 @@
 
 ### Descrizione dell'attacco
 
-Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumerazione, dove raccolgo le informazioni su un'azienda ipotetica. Successivamente, lancio un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger, con l'aiuto del bersaglio, sottoforma di software lecito. Il keylogger mi permetterà di rubare le credenziali di accesso (e qualsiasi cosa il bersaglio digiti), che potrebbero venire utilizzate per accedere a informazioni sensibili ed esportarle.
+In questa demo suppongo di essere un attaccante, l'attacco che ho creato inizia con il presupposto di conoscere l'indirizzo IP di un'azienda ipotetica (per costruzione l'indirizzo IP sarà privato). Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
 ### Strumenti utilizzati
 
- Io opererò da Kali Linux, mentre il bersaglio opererà su Windows 2010. Userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). L'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]. L'arricchimento del codice relativo al key logger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
+ Io opererò da Kali Linux e Windows 11, mentre il bersaglio opererà su Windows 2010. Da Kali userò attivamente Nmap [1] per investigare sull’indirizzo IP, Hydra [2] per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione (per questa fase ho utilizzato [3]). Da Windows: l'implemetazione del Manager di spesa l'ho strutturata da un file base di un keylogger visto su YouTube [4]; l'arricchimento del codice relativo al key logger riguarda: la configurazione del percorso per salvare il file log.txt, e l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti. In seguito ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5]. In fine ho convertito il file da .py in .pyw e in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
+
+ Affinche l'applicazione fosse compatibile con il sistema windows 2010, ho dovuto usare la libreria pyinstaller su windows 11 perchè pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo, quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL (Dynamic-Link Libraries) su Windows.
+
+ Windows 2010 ha richiesto delle configurazioni particolari prima di essere utilizzato:
+
++ La disattivazione del firewall e della scansione in tempo reale.
++ Modifiche riguardo i privilegi dell'utente: utilizzando una utility di Windows di nome secpol.msc accedibile attraverso prompt dei comandi come amministratore e modificando la sezione riguardante "Criteri Locali"->"Assegnazioni Diritti Utente". 
++ Attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
++ Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e modificando la regole riguardanti ICMP Echo Request e TCP/UDP.
+
+### Note sulla demo
+
+La demo 
 
 <br>
 
@@ -26,22 +39,7 @@ Mi suppongo un attaccante, l'attacco che ho creato inizia con la fase di enumera
 
 ---
 
-L'enumerazione è la fase preliminare di questo attacco.
-
-### Tecniche di Enumerazione
-
-Come attaccante posso utilizzare diverse tecniche per identificare e raccogliere informazioni su un bersaglio, tra cui:
-
-+ LinkedIn: identificando alcuni dipendenti chiave dell'azienda e raccoglie informazioni sul loro ruolo e sui loro interessi professionali.
-
-+ Whois Lookup: ottenendo delle informazioni sui registranti di domini aziendali, che possono includere nomi, indirizzi e contatti.
-
-+ Nmap: utilizzando questo strumento di scansione di rete sui dispositivi e servizi in della rete del bersaglio per identificare host attivi, porte aperte e servizi in esecuzione su tali porte.
-
-### Scoperte nella fase di enumerazione
-
-Sono interessata a un'azienda del settore finanziario di nome "Finanza Viva" (non esiste realmente). Durante la fase di enumerazione ho raccolto molte informazioni pubbliche sulla azienda e sui suoi dipendenti.
-Attraverso Whois Lookup e Shodan trovo l'indirizzo IP 10.0.2.4 associato (supponiamo non sia privato). A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Service Version Detection: Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
+Sono interessata a un'azienda del settore finanziario di nome "Finanza Viva" (non esiste realmente) e conosco l'indirizzo IP della azienda 10.0.2.4. A questo punto procedo con la scansione di 10.0.2.4 utilizzando Nmap con l'opzione -sV (Nmap tenta di identificare quali servizi sono attivi sulle porte e quali versioni specifiche di quei servizi sono in uso):
 
 ![Descrizione immagine](./images/enumer_nmap.png)
 
@@ -67,11 +65,11 @@ Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Ale
 
 ![Descrizione immagine](./images/Discover_utenti.png)
 
-Nella cartella Documents di Alessandro, trovo un file di nome biglietto da visita, lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
+Nella cartella Documents di Alessandro, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
-Ritorno alla fase di enumerazione e attraverso LinkedIn scopro che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
+Attraverso LinkedIn scopro che Alessandro è un grande appassionato della finanza e all'interno della azienda è il responsabile della gestione dei conti bancari.
 
 <br> 
 
@@ -112,12 +110,12 @@ Alessandro accede alla sua casella di posta, e legge la mail proviente dal team 
 
 ### Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger.
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
 ![Descrizione immagine](./images/Cod_compl.png)
 
-Ho salva lo script .py in .pyw perchè questa seconda estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico, dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
+Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 ```
@@ -222,10 +220,19 @@ Gli eventi chiave dell'attacco sono:
     + https://www.youtube.com/watch?v=kQFl-MVrvwc&t=211s
 
 5. Costruzione di gestore di spesa.exe con la libreria tkinter di python:
-    https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/
+    + https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/
 
 6. Creazione dell'eseguibile con la libreria pyinstaller:
     + https://pyinstaller.org/en/stable/
 
 7. Impacket scripts:
+
 	+ https://www.kali.org/tools/impacket-scripts/
+
+8. Visula Studio Code:
+
+    + https://code.visualstudio.com/
+
+9. Sito per trasforma una immagine in .ico:
+
+    + https://convertio.co/it/
