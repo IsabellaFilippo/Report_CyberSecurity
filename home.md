@@ -30,7 +30,7 @@ Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria P
 
 Affinche l'applicazione fosse compatibile con il sistema Windows 10, ho dovuto usare la libreria pyinstaller su windows 11 perchè pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo; quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL (Dynamic-Link Libraries) su Windows.
 
-### Configurazione Windows 10 Home
+### 3. Configurazione Windows 10 Home
 
 Windows 10 ha richiesto delle configurazioni particolari prima di essere utilizzato:
 
@@ -39,7 +39,7 @@ Windows 10 ha richiesto delle configurazioni particolari prima di essere utilizz
 + Attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
 + Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e modificando la regole riguardanti ICMP Echo Request e TCP/UDP.
 
-### 3. Note sulla demo
+### 4. Note sulla demo
 
 La demo non comprende le modifiche delle configurazioni relative ai sistemi operativi; il video presenta alcuni tagli e velocizzazioni a causa della lentezza della macchina virtuale con il SO Windows 10 Home.
 
