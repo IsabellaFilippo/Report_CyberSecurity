@@ -40,7 +40,7 @@ Scopro l'uso di credenziali predefinite da parte dell'amministratore, e procedo 
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore).
+Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifico l'identità della shell (che è quella dell'amministratore).
 
 Navigo tra i file e scopro la presenza di un altro utente: Alessandro.
 Nella sua cartella Documents, trovo un file di nome "Biglietto da visita.txt", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail.
