@@ -251,16 +251,14 @@ Viene registrato il tasto premuto e rilasciato con la relativa data e ora.
 
 <br>
 
-## **Conclusioni**
+## **Eventi chiave dell'attacco**
 
 ---
 
-Gli eventi chiave dell'attacco sono:
-
-+ l'assenza di regolamentazione dei privilegi dell'utente;
-+ l'assenza di limitazione all'accesso dei servizi SMB e SSH;
-+ l'uso di credenziali predefinite da parte dell'amministratore;
-+ l'aiuto da parte dell'utente è stato necessario per eseguire il programma malevolo.
++ Assenza di regolamentazione dei privilegi dell'utente;
++ Assenza di limitazione all'accesso dei servizi SMB e SSH;
++ Uso di credenziali predefinite da parte dell'amministratore;
++ Aiuto da parte dell'utente è stato necessario per eseguire il programma malevolo.
 
 </div>
 
