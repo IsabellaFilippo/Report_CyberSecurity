@@ -10,7 +10,7 @@
 
 ## **Descrizione dell'attacco**
 
-In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia con l'utilizzo di nmap per la scansione di un indirizzo IP. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger, sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia la scansione di un indirizzo IP. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger, sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
 Il bersaglio che ho considerato è Alessandro, un appassionato di finanza. Suppongo che sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro. L'unico fine di questo presupposto è la personalizzazione della mail per convincerlo ad scaricare l'allegato.
 
