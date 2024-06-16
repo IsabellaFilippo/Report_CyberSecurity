@@ -255,9 +255,9 @@ Viene registrato il tasto premuto e rilasciato con la relativa data e ora.
 
 ---
 
-+ Assenza di regolamentazione dei privilegi dell'utente;
-+ Assenza di limitazione all'accesso dei servizi SMB e SSH;
-+ Uso di credenziali predefinite da parte dell'amministratore;
++ Assenza di regolamentazione dei privilegi dell'utente.
++ Assenza di limitazione all'accesso dei servizi SMB e SSH.
++ Uso di credenziali predefinite da parte dell'amministratore.
 + Aiuto da parte dell'utente è stato necessario per eseguire il programma malevolo.
 
 </div>
