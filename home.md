@@ -63,8 +63,8 @@ Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia gr
 from datetime import datetime, date
 import tkinter as tk
 from tkinter import ttk
-import pynput # type: ignore
-from pynput.keyboard import Key, Listener # type: ignore
+import pynput 
+from pynput.keyboard import Key, Listener 
 import os
 
 
