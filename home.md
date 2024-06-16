@@ -11,7 +11,8 @@
 ## **Descrizione dell'attacco**
 
 In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia con l'utilizzo di nmap per la scansione di un indirizzo IP. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger, sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
-Il bersaglio che ho considerato è un soggetto di nome Alessandro. Suppongo che sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro. L'unico fine di questo presupposto è la personalizzazione della mail per convincerlo ad scaricare l'allegato.
+
+Il bersaglio che ho considerato è Alessandro, un appassionato di finanza. Suppongo che sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro. L'unico fine di questo presupposto è la personalizzazione della mail per convincerlo ad scaricare l'allegato.
 
 <br>
 
@@ -185,7 +186,7 @@ L'eseguibile lo invio poi via e-mail con l'esempio di corpo nella sezione dei to
 
 ### 2. Invio mail personalizzata
 
-Per la personalizzazione della e-mail suppongo che Alessandro lavori in banca.
+Per la personalizzazione della e-mail suppongo che Alessandro lavori nel campo finanziario.
 Creo un'e-mail personalizzata che convinca il bersaglio a scaricare l'allegato. L'e-mail finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa.
 
 Alessandro accede alla sua casella di posta, e legge la e-mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato, il file si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
@@ -323,7 +324,7 @@ Ciao Alessandro,
 
 Spero che tu stia bene! Siamo entusiasti di annunciarti che sei stato scelto per partecipare in esclusiva al test del nostro nuovo software per la Gestione Personale delle Spese.
 
-Abbiamo notato il tuo interesse e la tua competenza nel campo finanziario e crediamo che il tuo feedback possa essere estremamente prezioso per noi mentre continuiamo a perfezionare e migliorare il nostro prodotto.
+Abbiamo notato il tuo interesse e la tua competenza nel campo bancario e crediamo che il tuo feedback possa essere estremamente prezioso per noi mentre continuiamo a perfezionare e migliorare il nostro prodotto.
 
 Il nostro team ha fatto un duro lavoro per sviluppare uno strumento intuitivo e potente che semplifichi la gestione delle spese personali, offrendo funzionalità avanzate e una user experience impeccabile.
 
