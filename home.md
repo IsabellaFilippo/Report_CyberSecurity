@@ -103,7 +103,7 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger; la programmazione l'ho effettuata su Visual Code Studio [[8]](https://code.visualstudio.com/).
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta lo script completo e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
 
 ```python
 
