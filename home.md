@@ -20,15 +20,15 @@ Il bersaglio avrà il nome di Alessandro, personaggio da me inventato. Suppongo 
 
 ### 2. Strumenti utilizzati
 
-Io opero da Kali Linux __[12]__ (su Virtual Box __[11]__) e Windows 11 (SO nativo del mio dispositivo), mentre il bersaglio opera su Windows 10 Home __[13]__ (su Virtual Box __[11]__).
+Io opero da Kali Linux [[12]](https://www.kali.org/get-kali/#kali-virtual-machines) (su Virtual Box [[11]](https://www.virtualbox.org/)) e Windows 11 (SO nativo del mio dispositivo), mentre il bersaglio opera su Windows 10 Home [[13]](https://www.microsoft.com/it-it/software-download/windows10) (su Virtual Box [[11]](https://www.virtualbox.org/)).
 
 Da Kali:
 
-+ Uso il tool Nmap __[1]__ per investigare sull’indirizzo IP;
-+ Uso il tool Hydra __[2]__ per cercare username e password del servizio SSH;
-+ Sfrutto il protocollo SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com [3].
++ Uso il tool Nmap [[1]](https://nmap.org/) per investigare sull’indirizzo IP;
++ Uso il tool Hydra [[2]](https://github.com/vanhauser-thc/thc-hydra) per cercare username e password del servizio SSH;
++ Sfrutto il protocollo SMB per estrarre i file utilizzando lo strumento impacket [[7]](https://www.kali.org/tools/impacket-scripts/) per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com [[3]](https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server).
 
-Da Windows 11: ho programmato l'interfaccia utente del manager di spesa usando la libreria Tkinter di Python [5], in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube [4], che ho poi migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda:
+Da Windows 11: ho programmato l'interfaccia utente del manager di spesa usando la libreria Tkinter di Python [[5]](https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/), in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube [[4]](https://www.youtube.com/watch?v=kQFl-MVrvwc&t=211s), che ho poi migliorato con l'aiuto di BlackBox AI [[10]](https://www.blackbox.ai/); l'arricchimento del codice relativo al keylogger riguarda:
 
 + La configurazione del percorso per salvare il file log.txt;
 + L'aggiunta di una separazione più chiara tra la pressione e il rilascio dei tasti;
@@ -36,7 +36,7 @@ Da Windows 11: ho programmato l'interfaccia utente del manager di spesa usando l
 
 Successivamete ho riunito entrambi due programmi in un singolo script.
 
-Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
+Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria Pyinstaller [[6]](https://pyinstaller.org/en/stable/) di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
 #### Note sulla creazione dell'eseguibile
 
@@ -57,7 +57,7 @@ La demo non comprende le modifiche delle configurazioni relative ai sistemi oper
 
 ### 5. Note di utilizzo per il keylogger
 
-Il keylogger può essere modificato per essere inserito all'avvio di Windows modificando le chiavi del registro in modo da loggare anche la password dell'utente al momento effettivo del login sul device. La modifica può essere effettuata aggiungendo questa parte di codice.
+Il keylogger può essere modificato per essere inserito all'avvio di Windows modificando le chiavi del registro in modo da loggare anche la password dell'utente al momento effettivo del login sul device. La modifica può essere effettuata aggiungendo [questa parte di codice](Mod_chiavi_registro.md).
 
 <br>
 
@@ -102,7 +102,7 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger; la programmazione l'ho effettuata su Visual Code Studio [8].
+Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger; la programmazione l'ho effettuata su Visual Code Studio [[8]](https://code.visualstudio.com/).
 Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
 
 ```python
@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
 ```
 
-Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note precedenti per la creazione del .exe); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
+Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note precedenti per la creazione del .exe); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [[9]](https://convertio.co/it/)), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
