@@ -211,7 +211,7 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 ---
 
-Trascorso un periodo di tempo ragionevole in cui l'utente utilizza il suo computer, sfrutto il protocollo SMB per estrarre il file "log.txt" contenente la sequenza di tasti catturati.
+Sfrutto il protocollo SMB per estrarre il file "log.txt" contenente la sequenza di tasti catturati.
 
 ### 1. Configurazione del Server SMB
 
