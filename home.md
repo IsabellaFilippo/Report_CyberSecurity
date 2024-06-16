@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
 ```
 
-Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note precedenti per la creazione del .exe); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [[9]](https://convertio.co/it/)), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
+Ho salvato lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note precedenti per la creazione del .exe); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [[9]](https://convertio.co/it/)), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py

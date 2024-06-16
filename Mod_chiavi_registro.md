@@ -1,7 +1,7 @@
 
 ## Modifiche al keylogger
 
-Questa parte del codice l'ho programmata con l'aiuto di BlackBox AI [[10]](https://www.blackbox.ai/). Questa parte del codice è funzionante
+Questa parte del codice permette di ottenere persistence contro il riavvio o lo spegnimento del compoter, l'ho programmata con l'aiuto di BlackBox AI [[10]](https://www.blackbox.ai/). Questa parte del codice è funzionante
 
 ```python
 import os
