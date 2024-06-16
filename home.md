@@ -57,7 +57,7 @@ La demo non comprende le modifiche delle configurazioni relative ai sistemi oper
 
 ### 5. Note di utilizzo per il keylogger
 
-Il keylogger può essere modificato per essere inserito all'avvio di Windows modificando le chiavi del registro in modo da loggare anche la password dell'utente al momento effettivo del login sul device. La modifica può essere effettuata aggiungendo [questa parte di codice](Mod_chiavi_registro.md).
+Il keylogger può essere modificato affinchè si attivi all'avvio di Windows modificando le chiavi del registro in modo da loggare anche la password dell'utente al momento effettivo del login sul device. La modifica può essere effettuata aggiungendo [questa parte di codice](Mod_chiavi_registro.md) al codice inserito in questo report.
 
 <br>
 
