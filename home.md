@@ -10,9 +10,9 @@
 
 ## **Descrizione dell'attacco**
 
-In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia la scansione di un indirizzo IP. Successivamente, lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger, sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
+In questa demo svolgerò il ruolo di attaccante. L'attacco che ho creato inizia la scansione di un indirizzo IP. Successivamente lancerò un attacco di spearphishing, seguito dall'iniezione di un keylogger sottoforma di software lecito (chiamato poi manager spesa). Il keylogger mi permetterà di conoscere tutto quello che il bersaglio digiterà.
 
-Il bersaglio che ho considerato è Alessandro, un appassionato di finanza. Suppongo che sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro. L'unico fine di questo presupposto è la personalizzazione della mail per convincerlo ad scaricare l'allegato.
+Il bersaglio che ho considerato è Alessandro, un appassionato di finanza. Suppongo sia in possesso di un account di un qualsiasi social media da cui posso raccogliere informazioni relative alla sua vita e al suo lavoro. L'unico fine di questo presupposto è la personalizzazione della mail per convincerlo ad scaricare l'allegato.
 
 <br>
 
@@ -56,7 +56,7 @@ Nella sua cartella Documents, trovo un file di nome "Biglietto da visita.txt", l
 ### 1. Programmazione del Keylogger e dell'interfaccia grafica del gestore
 
 Ho programmato il "Gestore di spesa" con Python e nel codice sorgente ho inserito il keylogger; la programmazione l'ho effettuata su Visual Code Studio [[8]](https://code.visualstudio.com/).
-Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione, alla chiusura della finestra, il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria, potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta lo script completo e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
+Ho utilizzato la libreria Tkinter di Python per la creazione dell'interfaccia grafica relativa allo script. Per come è strutturata l'applicazione alla chiusura della finestra il Keylogger si attiva, registra tutti i tasti premuti da Alessandro e li salva in un file di nome "log.txt" nella cartella "C:\Windows\Temp" da me scelta. La scelta della cartella è stata arbitraria; potevo scegliere qualsiasi altro percorso. Il codice sottostante rappresenta lo script completo e funzionante del "Gestore di spesa", la parte finale del codice rappresenta solo il keylogger (preceduta da un commento per chiarezza):
 
 ```python
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
 ```
 
-Ho salvato lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note su tool e delucidazioni); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto una immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [[9]](https://convertio.co/it/)), dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
+Ho salvato lo script in formato .pyw perchè questa estensione permette di eseguire il programma senza aprire una finestra di console separata. Alla fine della programmazione trasformo lo script da .py a .exe sfruttando la libreria pyinstaller (per specifiche vedi note su tool e delucidazioni); essa prende lo script in Python e genera un singolo file eseguibile che contiene tutte le dipendenze necessarie rendendo possibile l'esecuzione del programma su computer con Python non installato. Ho scelto un'immagine a mio piacimento (con nome Icona.jpg) e l'ho convertita in .ico (attraverso un sito web [[9]](https://convertio.co/it/)). Dopo aver caricato la libreria pyinstaller sul sistema, eseguo il seguente comando:
 
 ```shell
 pyinstaller --onefile --icon=Icona.ico Gestore_di_spesa.py
@@ -189,7 +189,7 @@ L'eseguibile lo invio poi via e-mail con l'esempio di corpo nella sezione dei to
 Per la personalizzazione della e-mail suppongo che Alessandro lavori nel campo finanziario.
 Creo un'e-mail personalizzata che convinca il bersaglio a scaricare l'allegato. L'e-mail finge di provenire da una rinomata azienda del settore finanziario che propone di testare in esclusiva una nuova applicazione di gestione della spesa.
 
-Alessandro accede alla sua casella di posta, e legge la e-mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato, il file si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
+Alessandro accede alla sua casella di posta e legge la e-mail proviente dal team di Gestore Spese. Interessato all'opportunità decide di fare il download dell'allegato. Il file si presenta con il nome di "Manager spesa.exe" che è il file malevolo creato da me (l'attaccante).
 
 ### 3. Funzionamento del Software Malevolo
 
